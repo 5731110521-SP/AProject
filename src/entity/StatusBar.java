@@ -24,62 +24,84 @@ public class StatusBar implements IRenderable{
 	@Override
 	public void draw(Graphics2D g) {
 		
+		//CharacterPic 100x35
+				BufferedImage c1Pic = Resource.pic[c1.indexC];
+				g.drawImage(c1Pic,9,0,123, 60,null);
+				
+				BufferedImage c2Pic = Resource.pic[c2.indexC];
+				AffineTransform at = new AffineTransform();
+					at = AffineTransform.getScaleInstance(-1, 1);
+					at.translate(-c2Pic.getWidth(null), 0);
+					AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+					c2Pic = op.filter(c2Pic, null);
+				g.drawImage(c2Pic,520,0,121,60,null);
+		
 		//hpbarUnder
-//		g.drawImage(Resource.hpbarUnder, 6-3, 49+3,296,21, null);
-		AffineTransform at = new AffineTransform();
+		g.drawImage(Resource.hpbarUnder, 6-3, 55+3,296,21, null);
+		at = new AffineTransform();
 		at = AffineTransform.getScaleInstance(-1, 1);
-//		at.translate(-Resource.hpbarUnder.getWidth(null), 0);
-		AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-//		BufferedImage image = op.filter(Resource.hpbarUnder, null);
-//		g.drawImage(image , 338+3, 49+3,296,21, null);
+		at.translate(-Resource.hpbarUnder.getWidth(null), 0);
+		op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+		BufferedImage image = op.filter(Resource.hpbarUnder, null);
+		g.drawImage(image , 338+3, 55+3,296,21, null);
 		
 		//HpBar 290x21
 		g.setComposite(transcluentWhite);
 		g.setColor(Color.RED);
-		g.fillRect(9, 50, (int)(c1.getHealthPoint()/100.0*290), 20);
-		g.fillRect(341+290-(int)(c2.getHealthPoint()/100.0*290), 50, (int)(c2.getHealthPoint()/100.0*290), 20);
+		g.fillRect(9, 56, (int)(c1.getHealthPoint()/100.0*290), 20);
+		g.fillRect(341+290-(int)(c2.getHealthPoint()/100.0*290), 56, (int)(c2.getHealthPoint()/100.0*290), 20);
 		g.setComposite(opaque);
 		
 		//hpbarUpper
-//		g.drawImage(Resource.hpbarUpper, 6, 49,296,21, null);
-//		image = op.filter(Resource.hpbarUpper, null);
-//		g.drawImage(image, 338, 49,296,21, null);
+		g.drawImage(Resource.hpbarUpper, 6, 55,296,21, null);
+		image = op.filter(Resource.hpbarUpper, null);
+		g.drawImage(image, 338, 55,296,21, null);
 		
+		//powerMax
+		g.setColor(Color.GRAY);
+		if(c1.getPowerCount()>=1) g.setColor(new Color(252, 233, 169));
+		g.fillOval(15, 67, 12, 12);
+		g.setColor(Color.GRAY);
+		if(c1.getPowerCount()>=2) g.setColor(new Color(251, 229, 155));
+		g.fillOval(40, 67,12, 12);
+		g.setColor(Color.GRAY);
+		if(c1.getPowerCount()>=3) g.setColor(new Color(250, 200, 78));
+		g.fillOval(65, 67, 12, 12);
+		g.setColor(Color.GRAY);
+		if(c1.getPowerCount()>=4) g.setColor(new Color(253, 191, 41));
+		g.fillOval(90, 67, 12, 12);
 		
-		//CharacterPic 100x35
-		BufferedImage c1Pic = Resource.pic[c1.indexC];
-		g.drawImage(c1Pic,9,9,100, 35,null);
-		
-		BufferedImage c2Pic = Resource.pic[c2.indexC];
-		at = new AffineTransform();
-			at = AffineTransform.getScaleInstance(-1, 1);
-			at.translate(-c2Pic.getWidth(null), 0);
-			op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-			c2Pic = op.filter(c2Pic, null);
-		g.drawImage(c2Pic,531,9,100, 35,null);
+		g.setColor(Color.GRAY);
+		if(c2.getPowerCount()>=1) g.setColor(new Color(176, 222, 252));
+		g.fillOval(613, 67, 12, 12);
+		g.setColor(Color.GRAY);
+		if(c2.getPowerCount()>=2) g.setColor(new Color(144, 209, 251));
+		g.fillOval(588, 67, 12, 12);
+		g.setColor(Color.GRAY);
+		if(c2.getPowerCount()>=3) g.setColor(new Color(104, 194, 252));
+		g.fillOval(563, 67, 12, 12);
+		g.setColor(Color.GRAY);
+		if(c2.getPowerCount()>=4) g.setColor(new Color(67, 180, 252));
+		g.fillOval(538, 67, 12, 12);
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 99999;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean getFlashing() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

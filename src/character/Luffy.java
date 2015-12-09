@@ -16,8 +16,8 @@ import render.Resource;
 
 public class Luffy extends Character implements IRenderable {
 
-	public Luffy(int ap, int dp, int hp, int mp, Player player) {
-		super(10, dp, 100, mp);
+	public Luffy(int ap, int dp, int hp, Player player) {
+		super(10, dp, 100);
 		indexC = 1;
 		width = 53;
 		height = 51;
@@ -51,6 +51,25 @@ public class Luffy extends Character implements IRenderable {
 		if (countPic[0] == 8)
 			countPic[0] = 0;
 
+	}
+	
+	public void picJumpUpdate(){
+		if (countPic[1] > 7)
+			countPic[1] = 0;
+		character = Resource.luffy.getSubimage(34 + countPic[1] * 47, 164, 47, 54);
+		width = 47;
+		height = 54;
+		if (count == 1)
+			countPic[1] = 1;
+		else if (count == jumpMax + 1)
+			countPic[1] = 3;
+		else if (count == jumpMax + 2)
+			countPic[1] = 4;
+		else if (count == jumpMax * 2)
+			countPic[1] = 7;
+		else if (countPic[1] >= 7) {
+			countPic[1] = 0;
+		}
 	}
 
 	public void stand() {
@@ -115,25 +134,6 @@ public class Luffy extends Character implements IRenderable {
 		countPic[3]++;
 		if (countPic[3] >= 3)
 			character = Resource.luffy.getSubimage(261 + (2 * 56), 890, 56, 43);
-
-	}
-
-	
-	public void update() {
-		if (!InputUtility.getKeyPressed(player.getLeft()) && !InputUtility.getKeyPressed(player.getRight())) {
-			isRun = false;
-		}
-
-		picRunUpdate();
-		picAttackUpdate();
-		stand();
-
-		picLoseUpdate();
-		picShootUpdate();
-		countShoot++;
-
-		transform();
-		attackUpdate();
 
 	}
 

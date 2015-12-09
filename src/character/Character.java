@@ -21,6 +21,7 @@ public abstract class Character implements Playable {
 	protected int attackPower;
 	protected int defencePower;
 	protected int healthPoint;
+	protected int powerCount;
 	protected int maxPower;
 	protected boolean lose;
 	protected int x, y, width, height;
@@ -35,13 +36,14 @@ public abstract class Character implements Playable {
 	protected int count = 1;
 	protected int[] countPic = new int[6];
 	
-	public abstract void update();
+	public int getPowerCount() {
+		return powerCount;
+	}
 
-	public Character(int ap, int dp, int hp, int mp) {
+	public Character(int ap, int dp, int hp) {
 		attackPower = ap;
 		defencePower = dp;
 		healthPoint = hp;
-		maxPower = mp;
 		lose = false;
 		isAttacked = false;
 		isVisible = true;
@@ -60,7 +62,6 @@ public abstract class Character implements Playable {
 	}
 
 	public void draw(Graphics2D g) {
-		xp=character.getWidth()-width;
 		yp=character.getHeight()-height;
 		g.drawImage(character, x - xp, y - yp, character.getWidth(), character.getHeight(), null);
 		xp = 0;
@@ -202,23 +203,9 @@ public abstract class Character implements Playable {
 							isJump = false;
 							break;
 						}
-
-						if (countPic[1] > 7)
-							countPic[1] = 0;
-						character = Resource.luffy.getSubimage(34 + countPic[1] * 47, 164, 47, 54);
-						width = 47;
-						height = 54;
-						if (count == 1)
-							countPic[1] = 1;
-						else if (count == jumpMax + 1)
-							countPic[1] = 3;
-						else if (count == jumpMax + 2)
-							countPic[1] = 4;
-						else if (count == jumpMax * 2)
-							countPic[1] = 7;
-						else if (countPic[1] >= 7) {
-							countPic[1] = 0;
-						}
+						
+						picJumpUpdate();
+						
 					}
 				}
 			}
@@ -260,10 +247,9 @@ public abstract class Character implements Playable {
 
 	public void attacked(int amount) {
 		healthPoint -= amount;
-		if (healthPoint == 0)
-			lose = true;
-		if (healthPoint < 0)
+		if (healthPoint <= 0)
 			healthPoint = 0;
+		lose=isLose();
 		isAttacked = true;
 		flashing = true;
 		hitByEnemy();
@@ -290,5 +276,35 @@ public abstract class Character implements Playable {
 		}
 		
 	}
+	
+	public void update() {
+		if (!InputUtility.getKeyPressed(player.getLeft()) && !InputUtility.getKeyPressed(player.getRight())) {
+			isRun = false;
+		}
+
+		picRunUpdate();
+		picAttackUpdate();
+		stand();
+
+		picLoseUpdate();
+		picShootUpdate();
+		countShoot++;
+
+		transform();
+		attackUpdate();
+
+	}
+	
+	public abstract void picRunUpdate();
+	
+	public abstract void picJumpUpdate();
+
+	public abstract void stand();
+
+	public abstract void picAttackUpdate();
+
+	public abstract void picShootUpdate();
+
+	public abstract void picLoseUpdate();
 
 }
