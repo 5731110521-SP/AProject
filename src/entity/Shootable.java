@@ -22,14 +22,16 @@ public class Shootable implements IRenderable{
 	private Character shooter;
 	private character.Character enemy;
 	private BufferedImage shootOject;
-	private int x,y,xp;
+	private int x,y;
 	private int width,height;
-	private boolean isDestroy,isRight;
+	private int speed;
+	private boolean isDestroy,isRight,isVisible;
 
 	public Shootable(character.Character ch) {
 		shooter = ch;
-		xp=0;
+//		xp=0;
 		isDestroy = false;
+		isVisible = true;
 		enemy = ch.getEnemy();
 		isRight=ch.isRight();
 		power = 10;
@@ -41,28 +43,35 @@ public class Shootable implements IRenderable{
 			shootOject = Resource.luffy.getSubimage(214, 631, 50, 18);
 			width=shootOject.getWidth();
 			height=shootOject.getHeight();
+			speed=width;
 		}else if(ch instanceof Naruto){
 			shootOject = Resource.narutoBall.getSubimage(0, 0, 24, 26);
 			width=shootOject.getWidth();
 			height=shootOject.getHeight();
+			speed=width;
 		}else if(ch instanceof Reborn){
 			shootOject = Resource.reborn.getSubimage(685, 1827, 67, 29);
 			width=shootOject.getWidth();
 			height=shootOject.getHeight();
+			speed=width;
 		}else if(ch instanceof Natsu){
 			shootOject = Resource.natsu.getSubimage(271, 615, 30, 25);
 			width=shootOject.getWidth();
 			height=shootOject.getHeight();
+			speed=width;
 		}else if(ch instanceof Kurosaki){
 			shootOject = Resource.bleach.getSubimage(671, 1058, 81, 78);
 			width=shootOject.getWidth();
 			height=shootOject.getHeight();
+			speed=width;
 		}
+		
+		x = shooter.getX()-shooter.getXp()+(shooter.getCharacter().getWidth()/2);
+		y = shooter.getY()+shooter.getHeight()/2-height/2;
 		
 		if(!isRight && shootOject!=null) transform();
 		
-		x = shooter.getX();
-		y = shooter.getY()+shooter.getHeight()/2-height/2;
+		
 		
 	}
 	
@@ -74,7 +83,7 @@ public class Shootable implements IRenderable{
 		}else{
 			g.drawImage(shootOject, x, y, null);
 		}
-		xp=0;
+//		xp=0;
 	}
 	
 	public void transform() {
@@ -84,13 +93,15 @@ public class Shootable implements IRenderable{
 			at.translate(-shootOject.getWidth(null), 0);
 			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 			shootOject = op.filter(shootOject, null);
-			if(width>25) xp=width-25;
+			x=x-width;
+//			if(width>25) xp=width-25;
+//			if(shootOject.getWidth()>width) xp = shootOject.getWidth()-53;
 		}
 	}
 
 	@Override
 	public boolean isVisible() {
-		return !isDestroy;
+		return isVisible;
 	}
 
 	@Override
@@ -99,23 +110,35 @@ public class Shootable implements IRenderable{
 	}
 	
 	public boolean collideWith(Character ch){
-		if(Math.abs((x+width/2.0)-(ch.getX()-ch.getXp()+ch.getWidth()/2.0)) <= width/2.0+ch.getWidth()/2.0 
-				&& Math.abs((y+height/2.0)-(ch.getY()-ch.getYp()+ch.getHeight()/2.0)) <= height/2.0+ch.getHeight()/2.0){
+//		if(Math.abs((x+width/2.0)-(ch.getX()-ch.getXp()+ch.getWidth()/2.0)) <= width/2.0+ch.getWidth()/2.0 
+//				&& Math.abs((y+height/2.0)-(ch.getY()-ch.getYp()+ch.getHeight()/2.0)) <= height/2.0+ch.getHeight()/2.0){
+//			return true;
+//		}
+		if (Math.abs((x + (width / 2.0)) - (ch.getX()-ch.getXp() + (ch.getCharacter().getWidth() / 2.0))) <= width / 2.0 + ch.getCharacter().getWidth() / 2.0 && Math
+				.abs((y + height / 2.0) - (ch.getY() + ch.getCharacter().getHeight() / 2.0)) <= height / 2.0 + ch.getCharacter().getHeight() / 2.0) {
 			return true;
 		}
+//		if(x>=(ch.getX()-ch.getXp()) && x<=(ch.getX()+ch.getWidth()) && y>=(ch.getY()-ch.getYp()) && y<=(ch.getY()+ch.getHeight())){
+//			return true;
+//		}
 		return false;
 	}
 	
 	@Override
 	public void update() {
 		if(isRight){
-			x += width;
+			x += speed;
 		}else{
-			x-=width;
+			x-=speed;
+		}
+		if(isDestroy){
+			isVisible=false;
+			return;
 		}
 		if(collideWith(enemy)){
 			enemy.attacked(power);
 			isDestroy = true;
+			shooter.setPowerCount(shooter.getPowerCount()+1);
 		}else if(x >= GameScreen.width){
 			isDestroy =  true;
 		}

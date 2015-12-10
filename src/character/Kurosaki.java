@@ -9,20 +9,12 @@ public class Kurosaki extends Character implements IRenderable{
 	public Kurosaki(int ap, int dp, int hp,Player player) {
 		super(10, dp, 100);
 		indexC = 5;
-		width = 53;
-		height = 51;
+		width = 44;
+		height = 46;
 		x = 100;
 		y = 373 - height;
 		this.player = player;
-		isAttack = false;
-		isRun = false;
-		isJump = false;
-		isRight = true;
-		isShoot = false;
-		countShoot = 0;
 		character = Resource.bleach.getSubimage(5, 27, 44, 46);
-		for (int a : countPic)
-			a = 0;
 	}
 
 	@Override
@@ -116,8 +108,8 @@ public class Kurosaki extends Character implements IRenderable{
 			return;
 		if(countPic[5] == 0){
 			character = Resource.bleach.getSubimage(5, 1192, 42, 44);
-			width = 70;
-			height =50;
+//			width = 70;
+//			height =50;
 		}
 //		else if(countPic[5] == 1)	
 //			character = Resource.bleach.getSubimage(59, 1192, 42,44);

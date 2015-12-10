@@ -22,31 +22,42 @@ public abstract class Character implements Playable {
 	protected int defencePower;
 	protected int healthPoint;
 	protected int powerCount;
-	protected int maxPower;
 	protected boolean lose;
-	protected int x, y, width, height;
-	protected int xp = 0, yp = 0;
+	protected int x, y, xp, yp, width, height;
 	protected boolean isAttacked, isVisible;
-	protected boolean flashing = false;
-	protected int flashCounter, flashDurationCounter, counter, countShoot;
 	protected boolean isRun, isRight, isJump, isAttack, isDoubleAttack, isShoot;
+	protected boolean flashing;
+	protected int flashCounter, flashDurationCounter, counter, countShoot;
 	protected Player player;
 	protected Character enemy;
-	protected int jumpMax = 10;
+	protected int jumpMax = 5;
 	protected int count = 1;
 	protected int[] countPic = new int[6];
-	
-	public int getPowerCount() {
-		return powerCount;
-	}
 
 	public Character(int ap, int dp, int hp) {
 		attackPower = ap;
 		defencePower = dp;
 		healthPoint = hp;
+		xp=0;
+		yp=0;
+		countShoot = 0;
 		lose = false;
 		isAttacked = false;
+		isRun = false;
+		isJump = false;
+		isRight = true;
+		isShoot = false;
+		flashing = false;
 		isVisible = true;
+		for (int a : countPic)
+			a = 0;
+	}
+
+	public void draw(Graphics2D g) {
+		yp = character.getHeight() - height;
+		g.drawImage(character, x - xp, y - yp, character.getWidth(), character.getHeight(), null);
+		xp = 0;
+		yp = 0;
 	}
 
 	public void transform() {
@@ -56,17 +67,171 @@ public abstract class Character implements Playable {
 			at.translate(-character.getWidth(null), 0);
 			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
 			character = op.filter(character, null);
-			if (width > 53)
-				xp = width - 53;
+//			if (width > 53)
+//				xp = width - 53;
+			if(character.getWidth()>width) xp = character.getWidth()-53;
 		}
 	}
 
-	public void draw(Graphics2D g) {
-		yp=character.getHeight()-height;
-		g.drawImage(character, x - xp, y - yp, character.getWidth(), character.getHeight(), null);
-		xp = 0;
-		yp = 0;
+	public void run(boolean isRight) {
+		if (isAttack)
+			return;
+		isRun = true;
+		this.isRight = isRight;
+		if (isRight)
+			x += 20;
+		else
+			x -= 20;
 	}
+
+	public void jump() {
+		// System.out.println(isJump);
+		if (isJump) {
+			// System.out.println("return");
+			return;
+		}
+		isJump = true;
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (character) {
+					while (true) {
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						// System.out.println("while");
+						if (count <= jumpMax) {
+							y -= 20;
+							// System.out.println(count);
+							count++;
+						} else if (count > jumpMax && count <= jumpMax * 2) {
+							y += 20;
+							count++;
+						} else {
+							count = 1;
+							// System.out.println("break");
+							isJump = false;
+							break;
+						}
+
+						picJumpUpdate();
+
+					}
+				}
+			}
+		}).start();
+	}
+
+	public void attackUpdate() {
+		if (isAttack && collideWith(enemy) && !isDoubleAttack) {
+			enemy.setAttacked(true);
+			enemy.attacked(attackPower);
+			isDoubleAttack = true;
+			powerCount++;
+		}
+
+		if (isAttacked && flashing && flashDurationCounter % 2 == 0) {
+			flashing = false;
+			flashDurationCounter++;
+		} else if (isAttacked && !flashing && flashDurationCounter % 2 == 1) {
+			flashing = true;
+			flashDurationCounter++;
+		}
+		if (isAttacked && flashDurationCounter == flashCounter) {
+			flashing = false;
+			isAttacked = false;
+			flashDurationCounter = 0;
+		}
+	}
+
+	public void hitByEnemy() {
+		flashCounter = 5;
+		flashDurationCounter = 0;
+	}
+
+	public boolean isLose() {
+		if (healthPoint <= 0)
+			return true;
+		else
+			return false;
+	}
+
+	public void shoot(Character c) {
+		this.enemy = c;
+		if (countShoot >= 10) {
+			RenderableHolder.getInstance().add(new Shootable(this));
+			countShoot = 0;
+			isShoot = true;
+		}
+
+	}
+
+	public void attack(Character c) {
+		isAttack = true;
+		// System.out.println(isAttack);
+		this.enemy = c;
+	}
+
+	public void attacked(int amount) {
+		healthPoint -= amount;
+		if (healthPoint <= 0)
+			healthPoint = 0;
+		lose = isLose();
+		isAttacked = true;
+		flashing = true;
+		hitByEnemy();
+	}
+
+	public boolean collideWith(Character ch) {
+//		if (Math.abs((x - xp + width / 2.0) - (ch.x - ch.xp + ch.width / 2.0)) <= width / 2.0 + ch.width / 2.0 && Math
+//				.abs((y - yp + height / 2.0) - (ch.y - ch.yp + ch.height / 2.0)) <= height / 2.0 + ch.height / 2.0) {
+//			return true;
+//		}
+		if (Math.abs((x - xp + getCharacter().getWidth() / 2.0) - (ch.x - ch.xp + ch.getCharacter().getWidth() / 2.0)) <= getCharacter().getWidth() / 2.0 + ch.getCharacter().getWidth() / 2.0 && Math
+				.abs((y - yp + getCharacter().getHeight() / 2.0) - (ch.y - ch.yp + ch.getCharacter().getHeight() / 2.0)) <= getCharacter().getHeight() / 2.0 + ch.getCharacter().getHeight() / 2.0) {
+			return true;
+		}
+		return false;
+	}
+
+	public BufferedImage getCharacter() {
+		return character;
+	}
+
+	public void update() {
+		if (!InputUtility.getKeyPressed(player.getLeft()) && !InputUtility.getKeyPressed(player.getRight())) {
+			isRun = false;
+		}
+
+		picRunUpdate();
+		picAttackUpdate();
+		stand();
+
+		picLoseUpdate();
+		picShootUpdate();
+		countShoot++;
+		
+		attackUpdate();
+		
+		transform();
+	}
+
+	public abstract void picRunUpdate();
+
+	public abstract void picJumpUpdate();
+
+	public abstract void stand();
+
+	public abstract void picAttackUpdate();
+
+	public abstract void picShootUpdate();
+
+	public abstract void picLoseUpdate();
+
+	public abstract void picSuperAttack();
 
 	public boolean isRight() {
 		return isRight;
@@ -140,175 +305,16 @@ public abstract class Character implements Playable {
 		this.healthPoint = healthPoint;
 	}
 
-	public int getMaxPower() {
-		return maxPower;
-	}
-
-	public void setMaxPower(int maxPower) {
-		this.maxPower = maxPower;
-	}
-
 	public boolean getFlashing() {
 		return flashing;
 	}
 
-	public boolean collideWith(Character ch) {
-		if (Math.abs((x - xp + width / 2.0) - (ch.x - ch.xp + ch.width / 2.0)) <= width / 2.0 + ch.width / 2.0 && Math
-				.abs((y - yp + height / 2.0) - (ch.y - ch.yp + ch.height / 2.0)) <= height / 2.0 + ch.height / 2.0) {
-			return true;
-		}
-		return false;
+	public int getPowerCount() {
+		return powerCount;
 	}
 
-	public void run(boolean isRight) {
-		if (isAttack)
-			return;
-		isRun = true;
-		this.isRight = isRight;
-		if (isRight)
-			x += 20;
-		else
-			x -= 20;
+	public void setPowerCount(int powerCount) {
+		this.powerCount = powerCount;
 	}
-
-	public void jump() {
-		// System.out.println(isJump);
-		if (isJump) {
-			// System.out.println("return");
-			return;
-		}
-		isJump = true;
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				synchronized (character) {
-					while (true) {
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// System.out.println("while");
-						if (count <= jumpMax) {
-							y -= 20;
-							// System.out.println(count);
-							count++;
-						} else if (count > jumpMax && count <= jumpMax * 2) {
-							y += 20;
-							count++;
-						} else {
-							count = 1;
-							// System.out.println("break");
-							isJump = false;
-							break;
-						}
-						
-						picJumpUpdate();
-						
-					}
-				}
-			}
-		}).start();
-	}
-
-	public void attackUpdate() {
-		if (isAttack && collideWith(enemy) && !isDoubleAttack) {
-			enemy.setAttacked(true);
-			enemy.attacked(attackPower);
-			isDoubleAttack = true;
-			powerCount++;
-		}
-
-		if (isShoot && collideWith(enemy) && !isDoubleAttack) {
-			enemy.setAttacked(true);
-			enemy.attacked(maxPower);
-			isDoubleAttack = true;
-			powerCount++;
-		}
-
-		if (isAttacked && flashing && flashDurationCounter % 2 == 0) {
-			flashing = false;
-			flashDurationCounter++;
-		} else if (isAttacked && !flashing && flashDurationCounter % 2 == 1) {
-			flashing = true;
-			flashDurationCounter++;
-		}
-		if (isAttacked && flashDurationCounter == flashCounter) {
-			flashing = false;
-			isAttacked = false;
-			flashDurationCounter = 0;
-		}
-	}
-
-	public void attack(Character c) {
-		isAttack = true;
-		// System.out.println(isAttack);
-		this.enemy = c;
-	}
-
-	public void attacked(int amount) {
-		healthPoint -= amount;
-		if (healthPoint <= 0)
-			healthPoint = 0;
-		lose=isLose();
-		isAttacked = true;
-		flashing = true;
-		hitByEnemy();
-	}
-
-	public boolean isLose() {
-		if (healthPoint <= 0)
-			return true;
-		else
-			return false;
-	}
-
-	public void hitByEnemy() {
-		flashCounter = 5;
-		flashDurationCounter = 0;
-	}
-
-	public void shoot(Character c) {
-		this.enemy = c;
-		if (countShoot >= 10) {
-			RenderableHolder.getInstance().add(new Shootable(this));
-			countShoot = 0;
-			isShoot = true;
-		}
-		
-	}
-	
-	public void update() {
-		if (!InputUtility.getKeyPressed(player.getLeft()) && !InputUtility.getKeyPressed(player.getRight())) {
-			isRun = false;
-		}
-
-		picRunUpdate();
-		picAttackUpdate();
-		stand();
-
-		picLoseUpdate();
-		picShootUpdate();
-		countShoot++;
-
-		transform();
-		attackUpdate();
-
-	}
-	
-	public abstract void picRunUpdate();
-	
-	public abstract void picJumpUpdate();
-
-	public abstract void stand();
-
-	public abstract void picAttackUpdate();
-
-	public abstract void picShootUpdate();
-
-	public abstract void picLoseUpdate();
-	
-	public abstract void picSuperAttack();
 
 }

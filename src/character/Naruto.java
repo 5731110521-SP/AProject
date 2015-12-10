@@ -24,11 +24,6 @@ public class Naruto extends Character
 		x=100;
 		y=373-height;
 		this.player = player;
-		isAttack = false;
-		isRun = false;
-		isJump = false;
-		isRight = true;
-		countShoot = 5;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
 	}
 
@@ -123,13 +118,13 @@ public class Naruto extends Character
 		}else if(countPic[5] == 1){
 			character = Resource.naruto.getSubimage(104, 544, 66, 58);
 		}else if(countPic[5] ==2){
-			character = Resource.naruto.getSubimage(188, 540, 67, 56);
+			character = Resource.naruto.getSubimage(188, 540, 66, 58);
 		}else if(countPic[5] == 3){
 			character = Resource.naruto.getSubimage(263, 533, 66, 58);
 		}else if(countPic[5] == 4){
-			character = Resource.naruto.getSubimage(339, 465, 55, 54);
+			character = Resource.naruto.getSubimage(339, 465, 55, 58);
 		}else if(countPic[5] == 5){
-			character = Resource.naruto.getSubimage(410, 463, 67, 51);
+			character = Resource.naruto.getSubimage(410, 463, 66, 58);
 			isShoot = false;
 			countPic[5] = -1;
 			width=53;

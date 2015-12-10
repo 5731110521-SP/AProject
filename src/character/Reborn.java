@@ -16,15 +16,7 @@ public class Reborn extends Character implements IRenderable{
 		x = 100;
 		y = 373 - height;
 		this.player = player;
-		isAttack = false;
-		isRun = false;
-		isJump = false;
-		isRight = true;
-		isShoot = false;
-		countShoot = 0;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
-		for (int a : countPic)
-			a = 0;
 	}
 
 	@Override
@@ -47,16 +39,10 @@ public class Reborn extends Character implements IRenderable{
 		if(countPic[1] < 3){
 			if(countPic[1] == 0) {
 				character = Resource.reborn.getSubimage(17, 577,33, 43);
-				width = 33;
-				height = 43;
 			}else if(countPic[1] == 1) {
 				character = Resource.reborn.getSubimage(102, 553,43, 46);
-				width = 43;
-				height = 46;
 			}else if(countPic[1] == 2) {
 				character = Resource.reborn.getSubimage(198, 585, 38, 41);
-				width = 38;
-				height = 41;
 			}
 			if(countPic[1] == 3) {
 				isJump=false;
@@ -77,8 +63,6 @@ public class Reborn extends Character implements IRenderable{
 		if (isRun || isJump || isAttack)
 			return;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
-		width = 37;
-		height = 39;
 		for (int a : countPic)
 			a = 0;
 	}
@@ -89,46 +73,26 @@ public class Reborn extends Character implements IRenderable{
 			return;
 		if(countPic[2] == 0) {
 			character = Resource.reborn.getSubimage(20, 1097, 37, 42);
-			width = 37;
-			height = 42;
 		}else if(countPic[2] == 1) character = Resource.reborn.getSubimage(61, 1097, 37, 42);
 		else if(countPic[2] == 2) character = Resource.reborn.getSubimage(102, 1097, 37, 42);
 		else if(countPic[2] == 3) {
 			character = Resource.reborn.getSubimage(147, 1097, 42, 42);
-			width = 42;
-			height = 42;
 		}else if(countPic[2] == 4) {
 			character = Resource.reborn.getSubimage(191, 1098,146, 42);
-			width = 146;
-			height = 42;
 		}else if(countPic[2] == 5) {
 			character = Resource.reborn.getSubimage(343, 1098, 167, 42);
-			width = 167;
-			height = 42;
 		}else if(countPic[2] == 6) {
 			character = Resource.reborn.getSubimage(520, 1097, 163, 43);
-			width = 163;
-			height = 43;
 		}else if(countPic[2] == 7) {
 			character = Resource.reborn.getSubimage(690, 1097, 160, 44);
-			width = 160;
-			height = 44;
 		}else if(countPic[2] == 8) {
 			character = Resource.reborn.getSubimage(864, 1097, 147, 43);
-			width = 147;
-			height = 43;
 		}else if(countPic[2] == 9) {
 			character = Resource.reborn.getSubimage(1016, 1098, 42, 41);
-			width = 42;
-			height = 41;
 		}else if(countPic[2] == 10) {
 			character = Resource.reborn.getSubimage(1074, 1097, 38, 42);
-			width = 38;
-			height = 42;
 		}else if(countPic[2] == 11) {
 			character = Resource.reborn.getSubimage(1120, 1098, 37, 42);
-			width = 37;
-			height = 42;
 		}
 		countPic[2]++;
 		if(countPic[2]>=12){
@@ -157,8 +121,6 @@ public class Reborn extends Character implements IRenderable{
 //		}else 
 			if(countPic[5] == 0){
 			character = Resource.reborn.getSubimage(149, 1821, 61, 43);
-			width = 61;
-			height = 43;
 		}
 //			else if(countPic[5] == 4){
 //			character = Resource.reborn.getSubimage(231, 1825, 59, 43);
@@ -167,12 +129,8 @@ public class Reborn extends Character implements IRenderable{
 //		}
 			else if(countPic[5] == 1){
 			character = Resource.reborn.getSubimage(305, 1824, 80, 40);
-			width = 80;
-			height = 40;
 		}else if(countPic[5] == 2){
 			character = Resource.reborn.getSubimage(393, 1816, 82, 49);
-			width = 82;
-			height = 49;
 		}
 //		else if(countPic[5] == 7){
 //			character = Resource.reborn.getSubimage(482, 1810, 91, 54);

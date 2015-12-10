@@ -21,11 +21,6 @@ public class Pikachu extends Character
 		x=50;
 		y=373-height;
 		this.player = player;
-		isAttack = false;
-		isRun = false;
-		isJump = false;
-		isRight = true;
-		countShoot = 5;
 		character = Resource.pikachu.getSubimage(102, 4, 25, 28);
 	}
 	public void picRunUpdate() {

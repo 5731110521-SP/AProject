@@ -17,11 +17,11 @@ public class GameLogic {
 	
 	public GameLogic(){	
 		player1 = new Player(KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT,KeyEvent.VK_UP);
-		character1 = (Playable) player1.getCharacter()[3];
+		character1 = (Playable) player1.getCharacter()[5];
 		RenderableHolder.getInstance().add(character1);
 	
 		player2 = new Player(KeyEvent.VK_A,KeyEvent.VK_D,KeyEvent.VK_W);
-		character2 = (Playable) player2.getCharacter()[1];
+		character2 = (Playable) player2.getCharacter()[4];
 		RenderableHolder.getInstance().add(character2);
 	
 		StatusBar sb = new StatusBar((Character)character1, (Character)character2);

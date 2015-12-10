@@ -14,11 +14,6 @@ public class Natsu extends Character implements IRenderable{
 		x=100;
 		y=373-height;
 		this.player = player;
-		isAttack = false;
-		isRun = false;
-		isJump = false;
-		isRight = true;
-		countShoot = 5;
 		character = Resource.natsu.getSubimage(471, 224, 42, 55);
 	}
 
@@ -35,13 +30,13 @@ public class Natsu extends Character implements IRenderable{
 		if(countPic[0] == 0)
 			character = Resource.natsu.getSubimage(558, 229, 44, 49);
 		else if(countPic[0] == 1)
-			character = Resource.natsu.getSubimage(603, 229, 39, 49);
+			character = Resource.natsu.getSubimage(603, 229, 44, 49);
 		else if(countPic[0] == 2)
 			character = Resource.natsu.getSubimage(645, 228, 47, 50);
 		else if(countPic[0] == 3)
 			character = Resource.natsu.getSubimage(694, 228, 44, 50);
 		else if(countPic[0] == 4)
-			character = Resource.natsu.getSubimage(740, 229, 36, 50);
+			character = Resource.natsu.getSubimage(737, 229, 44, 50);
 		else if(countPic[0] == 5)
 			character = Resource.natsu.getSubimage(778, 228, 47, 49);
 		countPic[0]++;
@@ -53,16 +48,16 @@ public class Natsu extends Character implements IRenderable{
 		if(countPic[1] < 3){
 			if(countPic[1] == 0){
 				character = Resource.natsu.getSubimage(61, 297, 39, 57);
-				width=39;
-				height=57;
+//				width=39;
+//				height=57;
 			}else if(countPic[1] == 1){
 				character = Resource.natsu.getSubimage(104, 308, 52, 47);
-				width=52;
-				height=47;
+//				width=52;
+//				height=47;
 			}else if(countPic[1] == 2){
 				character = Resource.natsu.getSubimage(163, 297, 51, 58);
-				width=51;
-				height=58;
+//				width=51;
+//				height=58;
 			}
 			if(countPic[1] == 3) {
 				isJump=false;
@@ -83,8 +78,8 @@ public class Natsu extends Character implements IRenderable{
 		if (isRun || isJump || isAttack)
 			return;
 		character = Resource.natsu.getSubimage(471, 224, 42, 55);
-		width = 42;
-		height = 55;
+//		width = 42;
+//		height = 55;
 		for (int a : countPic)
 			a = 0;
 	}

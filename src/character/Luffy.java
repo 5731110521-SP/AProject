@@ -24,15 +24,7 @@ public class Luffy extends Character implements IRenderable {
 		x = 100;
 		y = 373 - height;
 		this.player = player;
-		isAttack = false;
-		isRun = false;
-		isJump = false;
-		isRight = true;
-		isShoot = false;
-		countShoot = 0;
 		character = Resource.luffy.getSubimage(278, 40, 60, 58);
-		for (int a : countPic)
-			a = 0;
 
 	}
 
@@ -45,8 +37,8 @@ public class Luffy extends Character implements IRenderable {
 		if (isJump || isAttack)
 			return;
 		character = Resource.luffy.getSubimage(380 + countPic[0] * 55, 43, 55, 50);
-		width = 55;
-		height = 50;
+//		width = 55;
+//		height = 50;
 		countPic[0]++;
 		if (countPic[0] == 8)
 			countPic[0] = 0;
@@ -57,8 +49,8 @@ public class Luffy extends Character implements IRenderable {
 		if (countPic[1] > 7)
 			countPic[1] = 0;
 		character = Resource.luffy.getSubimage(34 + countPic[1] * 47, 164, 47, 54);
-		width = 47;
-		height = 54;
+//		width = 47;
+//		height = 54;
 		if (count == 1)
 			countPic[1] = 1;
 		else if (count == jumpMax + 1)
@@ -76,8 +68,8 @@ public class Luffy extends Character implements IRenderable {
 		if (isRun || isJump || isAttack)
 			return;
 		character = Resource.luffy.getSubimage(278, 40, 53, 51);
-		width = 53;
-		height = 51;
+//		width = 53;
+//		height = 51;
 		for (int a : countPic)
 			a = 0;
 	}
@@ -86,8 +78,8 @@ public class Luffy extends Character implements IRenderable {
 		if (!isAttack)
 			return;
 		character = Resource.luffy.getSubimage(39 + countPic[2] * 40, 228, 45, 55);
-		width = 45;
-		height = 51;
+//		width = 45;
+//		height = 51;
 		if (countPic[2] == 0) {
 			countPic[2] = 1;
 		} else if (countPic[2] == 1) {
@@ -95,8 +87,8 @@ public class Luffy extends Character implements IRenderable {
 		} else if (countPic[2] > 1 && countPic[2] < 6) {
 			character = Resource.luffy.getSubimage(132 + (countPic[2] - 2) * 109, 229, 109, 53);
 			countPic[2]++;
-			width = 109;
-			height = 51;
+//			width = 109;
+//			height = 51;
 		} else if (countPic[2] >= 6) {
 			character = Resource.luffy.getSubimage(568, 229, 40, 55);
 			countPic[2] = 0;
@@ -112,8 +104,8 @@ public class Luffy extends Character implements IRenderable {
 		if (!isShoot)
 			return;
 		character = Resource.luffy.getSubimage(154, 618, 57, 53);
-		width=57;
-		height=53;
+//		width=57;
+//		height=53;
 		countPic[5]++;
 		if(countPic[5] == 1)
 			character = Resource.luffy.getSubimage(278, 621, 56, 53);
