@@ -137,4 +137,26 @@ public class Luffy extends Character implements IRenderable {
 
 	}
 
+	@Override
+	public void picSuperAttack() {
+		if(getPowerCount() >= 4){
+			if(countPic[4] == 0)
+				character = Resource.luffy.getSubimage(42, 305, 37, 47);
+			else if(countPic[4] == 1)
+				character = Resource.luffy.getSubimage(88, 315, 45, 36);
+			else if(countPic[4] == 2)
+				character = Resource.luffy.getSubimage(143, 298, 97, 54);
+			else if(countPic[4] == 3)
+				character = Resource.luffy.getSubimage(253, 298, 93, 54);
+			else if(countPic[4] == 4)
+				character = Resource.luffy.getSubimage(357, 301, 99, 50);
+			else if(countPic[4] == 5)
+				character = Resource.luffy.getSubimage(471, 300, 95, 52);
+			countPic[4]++;
+			if(countPic[4] >= 6){
+				countPic[4] = 0;
+			}
+		}
+	}
+
 }

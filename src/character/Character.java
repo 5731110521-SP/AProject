@@ -217,12 +217,14 @@ public abstract class Character implements Playable {
 			enemy.setAttacked(true);
 			enemy.attacked(attackPower);
 			isDoubleAttack = true;
+			powerCount++;
 		}
 
 		if (isShoot && collideWith(enemy) && !isDoubleAttack) {
 			enemy.setAttacked(true);
 			enemy.attacked(maxPower);
 			isDoubleAttack = true;
+			powerCount++;
 		}
 
 		if (isAttacked && flashing && flashDurationCounter % 2 == 0) {
@@ -306,5 +308,7 @@ public abstract class Character implements Playable {
 	public abstract void picShootUpdate();
 
 	public abstract void picLoseUpdate();
+	
+	public abstract void picSuperAttack();
 
 }

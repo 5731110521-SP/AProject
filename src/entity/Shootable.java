@@ -7,9 +7,12 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import character.Character;
+import character.Kurosaki;
 import character.Luffy;
 import character.Naruto;
+import character.Natsu;
 import character.Pikachu;
+import character.Reborn;
 import render.GameScreen;
 import render.IRenderable;
 import render.Resource;
@@ -40,6 +43,18 @@ public class Shootable implements IRenderable{
 			height=shootOject.getHeight();
 		}else if(ch instanceof Naruto){
 			shootOject = Resource.narutoBall.getSubimage(0, 0, 24, 26);
+			width=shootOject.getWidth();
+			height=shootOject.getHeight();
+		}else if(ch instanceof Reborn){
+			shootOject = Resource.reborn.getSubimage(685, 1827, 67, 29);
+			width=shootOject.getWidth();
+			height=shootOject.getHeight();
+		}else if(ch instanceof Natsu){
+			shootOject = Resource.natsu.getSubimage(271, 615, 30, 25);
+			width=shootOject.getWidth();
+			height=shootOject.getHeight();
+		}else if(ch instanceof Kurosaki){
+			shootOject = Resource.bleach.getSubimage(671, 1058, 81, 78);
 			width=shootOject.getWidth();
 			height=shootOject.getHeight();
 		}

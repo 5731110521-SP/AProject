@@ -89,6 +89,7 @@ public class Pikachu extends Character
 	}
 
 	public void picShootUpdate() {
+
 	}
 
 	public void picLoseUpdate() {
@@ -104,6 +105,11 @@ public class Pikachu extends Character
 	@Override
 	public int getZ() {
 		return 0;
+	}
+	@Override
+	public void picSuperAttack() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

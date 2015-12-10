@@ -10,14 +10,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
+import javafx.scene.image.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class Home extends JComponent{
+public class Home extends JPanel{
 	private boolean isVisible;
 	private BufferedImage button;
 	public Home(){
@@ -28,51 +34,33 @@ public class Home extends JComponent{
 		this.setVisible(true);
 		this.requestFocus();
 		button = Resource.button[0];
-		
-//		JButton b = new JButton("Start");
-//		b.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				InputUtility.mouseLeftDown();
-//			}
-//		});
-		
-		this.addMouseListener(new MouseListener() {
+		JPanel panel1 = new JPanel();
+		JLabel label1 = new JLabel(new ImageIcon(button));
+		panel1.add(label1);
+		panel1.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-					InputUtility.mouseLeftRelease();
+				InputUtility.mouseLeftRelease();
 			}
 			
 			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+			public void mouseExited(MouseEvent arg0) {
 				
 			}
 			
 			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-//				button = Resource.button[0];
+			public void mouseEntered(MouseEvent arg0) {
+				
 			}
 			
 			@Override
-			public void mouseEntered(MouseEvent e) {
-//				int x = e.getX();
-//				int y = e.getY();
-//				if(x>= 220 && x<=420 && y>=325 && y<=375)
-//					button = Resource.button[1];
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				if(x>= 220 && x<=420 && y>=325 && y<=375)
-					InputUtility.mouseLeftDown();
+			public void mouseClicked(MouseEvent arg0) {
+				InputUtility.mouseLeftDown();
 			}
 		});
+		this.add(panel1);
+		
 	}
 
 	@Override
@@ -80,7 +68,7 @@ public class Home extends JComponent{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(Resource.bg[1], 0, 0, null);
-		g2d.drawImage(button, 220, 325, null);
+//		g2d.drawImage(button, 220, 325, null);
 //		g2d.setColor(ColResource.button[0]or.BLACK);
 //		g2d.fillRect(0, 0, 640, 480);
 	}

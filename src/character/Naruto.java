@@ -18,7 +18,7 @@ public class Naruto extends Character
 	
 	public Naruto(int ap, int dp, int hp,Player player) {
 		super(20, 0, 100);
-		indexC = 0;
+		indexC = 2;
 		width = 53;
 		height = 61;
 		x=100;
@@ -86,7 +86,8 @@ public class Naruto extends Character
 		if (isRun || isJump || isAttack)
 			return;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
-		countPic[0]=0;
+		for (int a : countPic)
+			a = 0;
 	}
 
 	@Override
@@ -159,8 +160,13 @@ public class Naruto extends Character
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void picSuperAttack() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

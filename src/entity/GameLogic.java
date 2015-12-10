@@ -15,18 +15,15 @@ public class GameLogic {
 	protected Playable character1;
 	protected Playable character2;
 	
-	public GameLogic(){
-//		Background bg = new Background();
-//		RenderableHolder.getInstance().add(bg);
-		
+	public GameLogic(){	
 		player1 = new Player(KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT,KeyEvent.VK_UP);
-		character1 = (Playable) player1.getCharacter()[0];
+		character1 = (Playable) player1.getCharacter()[3];
 		RenderableHolder.getInstance().add(character1);
-//		
+	
 		player2 = new Player(KeyEvent.VK_A,KeyEvent.VK_D,KeyEvent.VK_W);
-		character2 = (Playable) player2.getCharacter()[2];
+		character2 = (Playable) player2.getCharacter()[1];
 		RenderableHolder.getInstance().add(character2);
-//		
+	
 		StatusBar sb = new StatusBar((Character)character1, (Character)character2);
 		RenderableHolder.getInstance().add(sb);
 
