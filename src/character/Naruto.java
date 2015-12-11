@@ -29,7 +29,7 @@ public class Naruto extends Character
 
 	@Override
 	public void picRunUpdate() {
-		if (isJump || isAttack)
+		if (!isRun)
 			return;
 		isAttack = false;
 		if(countPic[0] == 0)
@@ -78,7 +78,7 @@ public class Naruto extends Character
 
 	@Override
 	public void stand() {
-		if (isRun || isJump || isAttack)
+		if (isRun || isJump || isAttack || isShoot)
 			return;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
 		for (int a : countPic)

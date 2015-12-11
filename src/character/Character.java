@@ -74,8 +74,10 @@ public abstract class Character implements Playable {
 	}
 
 	public void run(boolean isRight) {
-		if (isAttack)
+		if (isAttack || isShoot){
+//			System.out.println("return");
 			return;
+		}
 		isRun = true;
 		this.isRight = isRight;
 		if (isRight)
@@ -205,14 +207,14 @@ public abstract class Character implements Playable {
 		if (!InputUtility.getKeyPressed(player.getLeft()) && !InputUtility.getKeyPressed(player.getRight())) {
 			isRun = false;
 		}
-
+		countShoot++;
+		
 		picRunUpdate();
 		picAttackUpdate();
-		stand();
-
-		picLoseUpdate();
 		picShootUpdate();
-		countShoot++;
+		
+		stand();
+		picLoseUpdate();
 		
 		attackUpdate();
 		

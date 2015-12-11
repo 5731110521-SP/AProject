@@ -34,7 +34,7 @@ public class Luffy extends Character implements IRenderable {
 	}
 	
 	public void picRunUpdate() {
-		if (isJump || isAttack)
+		if (!isRun)
 			return;
 		character = Resource.luffy.getSubimage(380 + countPic[0] * 55, 43, 55, 50);
 //		width = 55;
@@ -65,7 +65,7 @@ public class Luffy extends Character implements IRenderable {
 	}
 
 	public void stand() {
-		if (isRun || isJump || isAttack)
+		if (isRun || isJump || isAttack || isShoot)
 			return;
 		character = Resource.luffy.getSubimage(278, 40, 53, 51);
 //		width = 53;

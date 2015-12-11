@@ -24,7 +24,7 @@ public class Pikachu extends Character
 		character = Resource.pikachu.getSubimage(102, 4, 25, 28);
 	}
 	public void picRunUpdate() {
-		if (isJump || isAttack)
+		if (!isRun)
 			return;
 		isAttack = false;
 		character = Resource.pikachu.getSubimage(39+countPic[0]*25, 147, 25, 28);
@@ -53,7 +53,7 @@ public class Pikachu extends Character
 	}
 	
 	public void stand() {
-		if (isRun || isJump || isAttack)
+		if (isRun || isJump || isAttack || isShoot)
 			return;
 		character = Resource.pikachu.getSubimage(102, 4, 25, 28);
 		width = 25;

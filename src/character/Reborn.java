@@ -26,7 +26,7 @@ public class Reborn extends Character implements IRenderable{
 
 	@Override
 	public void picRunUpdate() {
-		if (isJump || isAttack)
+		if (!isRun)
 			return;
 		isAttack = false;
 		if(countPic[0] < 4 ) character = Resource.reborn.getSubimage(1+(countPic[0]*45), 489, 45, 43);;
@@ -60,7 +60,7 @@ public class Reborn extends Character implements IRenderable{
 
 	@Override
 	public void stand() {
-		if (isRun || isJump || isAttack)
+		if (isRun || isJump || isAttack || isShoot)
 			return;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
 		for (int a : countPic)

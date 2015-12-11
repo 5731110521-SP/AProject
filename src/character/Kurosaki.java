@@ -24,7 +24,8 @@ public class Kurosaki extends Character implements IRenderable{
 
 	@Override
 	public void picRunUpdate() {
-		if (isJump || isAttack)
+//		if (isJump || isAttack || flashing)
+		if(!isRun)
 			return;
 		isAttack = false;
 		if(countPic[0] == 0)
@@ -75,7 +76,7 @@ public class Kurosaki extends Character implements IRenderable{
 
 	@Override
 	public void stand() {
-		if (isRun || isJump || isAttack)
+		if (isRun || isJump || isAttack || isShoot)
 			return;
 		character = Resource.bleach.getSubimage(5, 27, 44, 46);
 		for (int a : countPic)

@@ -24,7 +24,7 @@ public class Natsu extends Character implements IRenderable{
 
 	@Override
 	public void picRunUpdate() {
-		if (isJump || isAttack)
+		if (!isRun)
 			return;
 		isAttack = false;
 		if(countPic[0] == 0)
@@ -75,7 +75,7 @@ public class Natsu extends Character implements IRenderable{
 
 	@Override
 	public void stand() {
-		if (isRun || isJump || isAttack)
+		if (isRun || isJump || isAttack || isShoot)
 			return;
 		character = Resource.natsu.getSubimage(471, 224, 42, 55);
 //		width = 42;
