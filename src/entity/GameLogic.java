@@ -17,7 +17,7 @@ public class GameLogic {
 	
 	public GameLogic(){	
 		player1 = new Player(KeyEvent.VK_LEFT,KeyEvent.VK_RIGHT,KeyEvent.VK_UP);
-		character1 = (Playable) player1.getCharacter()[5];
+		character1 = (Playable) player1.getCharacter()[0];
 		RenderableHolder.getInstance().add(character1);
 	
 		player2 = new Player(KeyEvent.VK_A,KeyEvent.VK_D,KeyEvent.VK_W);
@@ -46,6 +46,10 @@ public class GameLogic {
 			if(!((Character) character1).isLose())
 				((Character) character1).shoot(((Character) character2));
 				else return;
+		}else if(InputUtility.getKeyPressed(KeyEvent.VK_BACK_SLASH)){
+			if(!character1.isLose())
+				character1.superAttack();
+				else return;
 		}
 		
 		if(InputUtility.getKeyPressed(KeyEvent.VK_UP)){
@@ -71,6 +75,10 @@ public class GameLogic {
 			if(!((Character) character2).isLose())
 				((Character) character2).shoot(((Character) character1));
 				else return;
+		}else if(InputUtility.getKeyPressed(KeyEvent.VK_Z)){
+			if(!character2.isLose())
+				character2.superAttack();
+				else return;
 		}
 		
 		if(InputUtility.getKeyPressed(KeyEvent.VK_W)){
@@ -79,9 +87,11 @@ public class GameLogic {
 			else return;
 		}
 		
-		for(IRenderable entity : RenderableHolder.getInstance().getRenderableList()){
-			if(entity.isVisible()){
-				entity.update();
+		synchronized (RenderableHolder.getInstance().getRenderableList()) {
+			for(IRenderable entity : RenderableHolder.getInstance().getRenderableList()){
+				if(entity.isVisible()){
+					entity.update();
+				}
 			}
 		}
 		

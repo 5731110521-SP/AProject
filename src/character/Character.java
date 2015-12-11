@@ -25,12 +25,12 @@ public abstract class Character implements Playable {
 	protected boolean lose;
 	protected int x, y, xp, yp, width, height;
 	protected boolean isAttacked, isVisible;
-	protected boolean isRun, isRight, isJump, isAttack, isDoubleAttack, isShoot;
+	protected boolean isRun, isRight, isJump, isAttack, isDoubleAttack, isShoot,isSuperAttack;
 	protected boolean flashing;
 	protected int flashCounter, flashDurationCounter, counter, countShoot;
 	protected Player player;
 	protected Character enemy;
-	protected int jumpMax = 5;
+	protected int jumpMax = 10;
 	protected int count = 1;
 	protected int[] countPic = new int[6];
 
@@ -74,8 +74,7 @@ public abstract class Character implements Playable {
 	}
 
 	public void run(boolean isRight) {
-		if (isAttack || isShoot){
-//			System.out.println("return");
+		if (isAttack || isShoot || isSuperAttack){
 			return;
 		}
 		isRun = true;
@@ -84,14 +83,17 @@ public abstract class Character implements Playable {
 			x += 20;
 		else
 			x -= 20;
+		
+		if(x<0) x=0;
+		else if(x>640-character.getWidth()) x=640-character.getWidth();
 	}
 
 	public void jump() {
-		// System.out.println(isJump);
-		if (isJump) {
-			// System.out.println("return");
+		if (isJump || isAttack || isShoot || isSuperAttack){
+//			System.out.println("re");
 			return;
 		}
+//		System.out.println("in");
 		isJump = true;
 
 		new Thread(new Runnable() {
@@ -115,12 +117,14 @@ public abstract class Character implements Playable {
 						} else {
 							count = 1;
 							// System.out.println("break");
-							isJump = false;
-							break;
 						}
 
 						picJumpUpdate();
-
+						
+						if(!isJump) {
+							count=1;
+							break;
+						}
 					}
 				}
 			}
@@ -162,6 +166,9 @@ public abstract class Character implements Playable {
 	}
 
 	public void shoot(Character c) {
+		if (isAttack || isShoot || isSuperAttack){
+			return;
+		}
 		this.enemy = c;
 		if (countShoot >= 10) {
 			RenderableHolder.getInstance().add(new Shootable(this));
@@ -171,7 +178,20 @@ public abstract class Character implements Playable {
 
 	}
 
+	public void superAttack(){
+		if (isAttack || isShoot || isSuperAttack){
+			return;
+		}
+		if(powerCount>=4){
+			isSuperAttack=true;
+			powerCount=0;
+		}
+	}
+
 	public void attack(Character c) {
+		if (isAttack || isShoot || isSuperAttack){
+			return;
+		}
 		isAttack = true;
 		// System.out.println(isAttack);
 		this.enemy = c;
@@ -212,6 +232,7 @@ public abstract class Character implements Playable {
 		picRunUpdate();
 		picAttackUpdate();
 		picShootUpdate();
+		picSuperAttack();
 		
 		stand();
 		picLoseUpdate();
@@ -317,6 +338,10 @@ public abstract class Character implements Playable {
 
 	public void setPowerCount(int powerCount) {
 		this.powerCount = powerCount;
+	}
+	
+	public boolean isSuperAttack() {
+		return isSuperAttack;
 	}
 
 }

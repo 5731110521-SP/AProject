@@ -18,6 +18,7 @@ public class Resource {
 	public static BufferedImage reborn;
 	public static BufferedImage natsu;
 	public static BufferedImage bleach;
+	public static BufferedImage[] superAttack = new BufferedImage[6];;
 	public static BufferedImage[] bg = new BufferedImage[2];
 	public static BufferedImage[] pic = new BufferedImage[6];
 	public static BufferedImage hpbarUnder,hpbarUpper;
@@ -40,6 +41,8 @@ public class Resource {
 			natsu = ImageIO.read(loader.getResource("res/Natsu.png"));
 			
 			bleach = ImageIO.read(loader.getResource("res/bleach.png"));
+			
+			superAttack[0] = ImageIO.read(loader.getResource("res/pickachu2.png"));
 			
 			bg[0]= ImageIO.read(loader.getResource("res/bg-01.png"));
 			bg[1]= ImageIO.read(loader.getResource("res/home.png"));

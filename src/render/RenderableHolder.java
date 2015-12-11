@@ -18,14 +18,17 @@ public class RenderableHolder {
 	}
 	
 	public void add(IRenderable render){
-		entities.add(render);
-		Collections.sort(entities, new Comparator<IRenderable>() {
-			@Override
-			public int compare(IRenderable arg0, IRenderable arg1) {
-				if(arg0.getZ() > arg1.getZ()) return 1;
-				else return -1;
-			}
-		});
+		synchronized (entities) {
+			entities.add(render);
+			Collections.sort(entities, new Comparator<IRenderable>() {
+				@Override
+				public int compare(IRenderable arg0, IRenderable arg1) {
+					if(arg0.getZ() > arg1.getZ()) return 1;
+					else return -1;
+				}
+			});
+		}
+		
 	}
 	
 	public List<IRenderable> getRenderableList(){
