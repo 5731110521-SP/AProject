@@ -22,7 +22,7 @@ public class Resource {
 	public static BufferedImage[] pic = new BufferedImage[6];
 	public static BufferedImage hpbarUnder,hpbarUpper;
 	public static AudioClip coinSound;
-	public static BufferedImage[] button = new BufferedImage[2];
+	public static BufferedImage[] button = new BufferedImage[6];
 	
 	static{
 		try{
@@ -42,7 +42,7 @@ public class Resource {
 			bleach = ImageIO.read(loader.getResource("res/bleach.png"));
 			
 			bg[0]= ImageIO.read(loader.getResource("res/bg-01.png"));
-			bg[1]= ImageIO.read(loader.getResource("res/homebg.png"));
+			bg[1]= ImageIO.read(loader.getResource("res/home.png"));
 			hpbarUnder = ImageIO.read(loader.getResource("res/hpbarUnder-02.png"));
 			hpbarUpper = ImageIO.read(loader.getResource("res/hpbarUpper-02.png"));
 			
@@ -52,13 +52,16 @@ public class Resource {
 			pic[3] = ImageIO.read(loader.getResource("res/rebornpic-04.png"));
 			pic[4] = ImageIO.read(loader.getResource("res/natsupic-05.png"));
 			pic[5] = ImageIO.read(loader.getResource("res/bleachpic-06.png"));
-			button[0] = ImageIO.read(loader.getResource("res/b1.png"));
-			button[1] = ImageIO.read(loader.getResource("res/b2.png"));
+			
+			button[0] = ImageIO.read(loader.getResource("res/bstart.png"));
+			button[1] = ImageIO.read(loader.getResource("res/bhow.png"));
+			button[2] = ImageIO.read(loader.getResource("res/bSetting.png"));
+			button[3] = ImageIO.read(loader.getResource("res/bstart2.png"));
+			button[4] = ImageIO.read(loader.getResource("res/bhow2.png"));
+			button[5] = ImageIO.read(loader.getResource("res/bSetting2.png"));
 			
 			System.out.println("try");
 		}catch(Exception e){
-			pikachu = null;
-			coinSound = null;
 			System.out.println("catch");
 		}
 	}
