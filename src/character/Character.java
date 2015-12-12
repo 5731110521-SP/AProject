@@ -35,7 +35,7 @@ public abstract class Character implements Playable {
 	protected int count = 1;
 	protected int[] countPic = new int[6];
 
-	public Character(int ap, int dp, int hp) {
+	public Character(int player,int ap, int dp, int hp) {
 		attackPower = ap;
 		defencePower = dp;
 		healthPoint = hp;
@@ -50,6 +50,12 @@ public abstract class Character implements Playable {
 		isShoot = false;
 		flashing = false;
 		isVisible = true;
+		if(player==1){
+			x=100;
+		}else{
+			x=500;
+			isRight=false;
+		}
 		for (int a : countPic)
 			a = 0;
 	}
@@ -71,7 +77,7 @@ public abstract class Character implements Playable {
 			character = op.filter(character, null);
 //			if (width > 53)
 //				xp = width - 53;
-			if(character.getWidth()>width) xp = character.getWidth()-53;
+			if(character.getWidth()>width) xp = character.getWidth()-width;
 		}
 	}
 
@@ -219,10 +225,20 @@ public abstract class Character implements Playable {
 //			return true;
 //		}
 //		return false;
+		
 //		Rectangle p = new Rectangle(x, y, width/2, height/2);
 //		Rectangle m = new Rectangle(ch.x, ch.y, ch.width/2, ch.height/2);
+		
+//		int xp=0,yp=0,chxp=0,chyp=0;
+//		yp = character.getHeight() - height;
+//		chyp=ch.getCharacter().getHeight()-ch.getHeight();
+//		if(character.getWidth()>width) xp = character.getWidth()-width;
+//		if(ch.getCharacter().getWidth()>ch.getWidth()) chxp = ch.getCharacter().getWidth()-ch.getWidth();
+//		Rectangle p = new Rectangle(x-xp, y-yp, character.getWidth(), character.getHeight());
+//		Rectangle m = new Rectangle(ch.x-chxp, ch.y-chyp, ch.getCharacter().getWidth(), ch.getCharacter().getHeight());
+		
 		Rectangle p = new Rectangle(x-xp, y-yp, character.getWidth(), character.getHeight());
-		Rectangle m = new Rectangle(ch.x-ch.xp, ch.y-ch.yp, ch.getCharacter().getWidth(), ch.getCharacter().getHeight());
+		Rectangle m = new Rectangle(ch.x-ch.getXp(), ch.y-ch.getYp(), ch.getCharacter().getWidth(), ch.getCharacter().getHeight());
 		return p.intersects(m);
 	}
 
@@ -244,9 +260,8 @@ public abstract class Character implements Playable {
 		stand();
 		picLoseUpdate();
 		
-		attackUpdate();
-		
 		transform();
+		attackUpdate();
 	}
 
 	public abstract void picRunUpdate();

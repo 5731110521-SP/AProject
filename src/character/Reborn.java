@@ -10,12 +10,11 @@ import render.Resource;
 
 public class Reborn extends Character implements IRenderable{
 
-	public Reborn(int ap, int dp, int hp,Player player) {
-		super(10, 5, 100);
+	public Reborn(int p,int ap, int dp, int hp,Player player) {
+		super(p,10, 5, 100);
 		indexC = 3;
 		width = 37;
 		height = 39;
-		x = 100;
 		y = 373 - height;
 		this.player = player;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);

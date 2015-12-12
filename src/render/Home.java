@@ -122,7 +122,6 @@ public class Home extends JPanel{
 	public int update() {
 		if(InputUtility.isLeftClickTriggered()){
 			InputUtility.updateInputState();
-			setVisible(false);
 			return next;
 		}
 		return -1;

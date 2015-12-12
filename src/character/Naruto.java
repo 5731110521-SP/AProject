@@ -15,12 +15,11 @@ import render.Resource;
 
 public class Naruto extends Character implements IRenderable {
 
-	public Naruto(int ap, int dp, int hp, Player player) {
-		super(20, 0, 100);
+	public Naruto(int p,int ap, int dp, int hp, Player player) {
+		super(p,20, 0, 100);
 		indexC = 2;
 		width = 53;
 		height = 61;
-		x = 100;
 		y = 373 - height;
 		this.player = player;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
@@ -53,14 +52,14 @@ public class Naruto extends Character implements IRenderable {
 		if (countPic[1] < 3) {
 			if (countPic[1] == 0) {
 				character = Resource.naruto.getSubimage(1, 146, 42, 44);
-				width = 42;
-				height = 44;
+//				width = 42;
+//				height = 44;
 			} else if (countPic[1] == 1)
 				character = Resource.naruto.getSubimage(110, 135, 41, 68);
 			else if (countPic[1] == 2) {
 				character = Resource.naruto.getSubimage(163, 135, 51, 66);
-				width = 51;
-				height = 66;
+//				width = 51;
+//				height = 66;
 			}
 			if (countPic[1] == 3) {
 				isJump = false;

@@ -35,6 +35,7 @@ public class Resource {
 	public static AudioClip pikaShoot;
 	public static AudioClip jump;
 	public static BufferedImage[] button = new BufferedImage[6];
+	public static BufferedImage[] choose = new BufferedImage[7];
 	
 	static{
 		try{
@@ -79,6 +80,14 @@ public class Resource {
 			button[3] = ImageIO.read(loader.getResource("res/bstart2.png"));
 			button[4] = ImageIO.read(loader.getResource("res/bhow2.png"));
 			button[5] = ImageIO.read(loader.getResource("res/bSetting2.png"));
+			
+			choose[6] = ImageIO.read(loader.getResource("res/choose.png"));
+			choose[0] = ImageIO.read(loader.getResource("res/choosepi.png"));
+			choose[1] = ImageIO.read(loader.getResource("res/chooselu.png"));
+			choose[2] = ImageIO.read(loader.getResource("res/choosenar.png"));
+			choose[3] = ImageIO.read(loader.getResource("res/choosere.png"));
+			choose[4] = ImageIO.read(loader.getResource("res/choosena.png"));
+			choose[5] = ImageIO.read(loader.getResource("res/chooseku.png"));
 			
 			pikachu1 = Applet.newAudioClip((loader.getResource("res/pika.wav")).toURI().toURL());
 			pikachu2 = Applet.newAudioClip((loader.getResource("res/thunder.wav")).toURI().toURL());

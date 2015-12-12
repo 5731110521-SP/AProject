@@ -63,7 +63,6 @@ public class How extends JPanel{
 	public boolean update() {
 		if(InputUtility.isLeftClickTriggered()){
 			InputUtility.updateInputState();
-			setVisible(false);
 			return true;
 		}
 		return false;

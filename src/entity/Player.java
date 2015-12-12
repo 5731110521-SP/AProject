@@ -17,22 +17,25 @@ public class Player {
 	private String name;
 	private int left,right,up;
 	private IRenderable[] character = new IRenderable[6];
+	private int player;
 	
-	public Player(int l,int r, int u){
+	public Player(int player,int l,int r, int u){
 		left = l;
 		right = r;
 		up = u;
-		Pikachu pikachu = new Pikachu(0, 0, 0, this);
+		this.player=player;
+		
+		Pikachu pikachu = new Pikachu(player,0, 0, 0, this);
 		character[0] = pikachu;
-		Luffy luffy = new Luffy(0, 0, 0, this);
+		Luffy luffy = new Luffy(player,0, 0, 0, this);
 		character[1] = luffy;
-		Naruto naruto = new Naruto(0, 0, 0, this);
+		Naruto naruto = new Naruto(player,0, 0, 0, this);
 		character[2] = naruto;
-		Reborn reborn = new Reborn(0, 0, 0, this);
+		Reborn reborn = new Reborn(player,0, 0, 0, this);
 		character[3] = reborn;
-		Natsu natsu = new Natsu(0, 0, 0, this);
+		Natsu natsu = new Natsu(player,0, 0, 0, this);
 		character[4] = natsu;
-		Kurosaki kuro = new Kurosaki(0, 0, 0, this);
+		Kurosaki kuro = new Kurosaki(player,0, 0, 0, this);
 		character[5] = kuro;
 	}
 	

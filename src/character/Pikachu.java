@@ -17,12 +17,11 @@ import render.Resource;
 
 public class Pikachu extends Character implements IRenderable {
 
-	public Pikachu(int ap, int dp, int hp, Player player) {
-		super(10, dp, 100);
+	public Pikachu(int p,int ap, int dp, int hp, Player player) {
+		super(p,10, dp, 100);
 		indexC = 0;
 		width = 25;
 		height = 30;
-		x = 50;
 		y = 373 - height;
 		this.player = player;
 		character = Resource.pikachu.getSubimage(102, 4, 25, 28);

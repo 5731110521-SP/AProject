@@ -6,12 +6,11 @@ import render.Resource;
 
 public class Natsu extends Character implements IRenderable{
 
-	public Natsu(int ap, int dp, int hp,Player player) {
-		super(20, 10, 100);
+	public Natsu(int p,int ap, int dp, int hp,Player player) {
+		super(p,20, 10, 100);
 		indexC = 4;
 		width = 42;
 		height = 55;
-		x=100;
 		y=373-height;
 		this.player = player;
 		character = Resource.natsu.getSubimage(471, 224, 42, 55);

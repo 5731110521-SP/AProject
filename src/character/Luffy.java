@@ -16,12 +16,11 @@ import render.Resource;
 
 public class Luffy extends Character implements IRenderable {
 
-	public Luffy(int ap, int dp, int hp, Player player) {
-		super(10, dp, 100);
+	public Luffy(int p,int ap, int dp, int hp, Player player) {
+		super(p,10, dp, 100);
 		indexC = 1;
-		width = 53;
-		height = 51;
-		x = 100;
+		width = 60;
+		height = 58;
 		y = 373 - height;
 		this.player = player;
 		character = Resource.luffy.getSubimage(278, 40, 60, 58);
@@ -91,8 +90,8 @@ public class Luffy extends Character implements IRenderable {
 		} else if (countPic[2] >= 6) {
 			character = Resource.luffy.getSubimage(568, 229, 40, 55);
 			countPic[2] = 0;
-			width = 40;
-			height = 51;
+//			width = 40;
+//			height = 51;
 			isAttack = false;
 			isDoubleAttack = false;
 		}

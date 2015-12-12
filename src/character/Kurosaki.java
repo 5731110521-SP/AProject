@@ -6,12 +6,11 @@ import render.Resource;
 
 public class Kurosaki extends Character implements IRenderable{
 
-	public Kurosaki(int ap, int dp, int hp,Player player) {
-		super(10, dp, 100);
+	public Kurosaki(int p,int ap, int dp, int hp,Player player) {
+		super(p,10, dp, 100);
 		indexC = 5;
 		width = 44;
 		height = 46;
-		x = 100;
 		y = 373 - height;
 		this.player = player;
 		character = Resource.bleach.getSubimage(5, 27, 44, 46);
