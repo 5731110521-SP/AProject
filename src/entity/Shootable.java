@@ -62,7 +62,8 @@ public class Shootable implements IRenderable {
 			height = shootOject.getHeight();
 			speed = width;
 		} else if (ch instanceof Kurosaki) {
-			shootOject = Resource.bleach.getSubimage(671, 1058, 81, 78);
+//			shootOject = Resource.bleach.getSubimage(671, 1058, 81, 78);
+			shootOject = Resource.bleach2.getSubimage(3, 10, 29, 58);
 			width = shootOject.getWidth();
 			height = shootOject.getHeight();
 			speed = width;

@@ -132,7 +132,7 @@ public abstract class Character implements Playable {
 	}
 
 	public void attackUpdate() {
-		if (isAttack && collideWith(enemy) && !isDoubleAttack) {
+		if ((isAttack) && collideWith(enemy) && !isDoubleAttack) {
 			enemy.setAttacked(true);
 			enemy.attacked(attackPower);
 			isDoubleAttack = true;
@@ -170,7 +170,7 @@ public abstract class Character implements Playable {
 			return;
 		}
 		this.enemy = c;
-		if (countShoot >= 10) {
+		if (countShoot >= 5) {
 			RenderableHolder.getInstance().add(new Shootable(this));
 			countShoot = 0;
 			isShoot = true;
@@ -229,7 +229,7 @@ public abstract class Character implements Playable {
 		}
 		countShoot++;
 		
-		picRunUpdate();
+		if(!isJump && !isAttack)picRunUpdate();
 		picAttackUpdate();
 		picShootUpdate();
 		picSuperAttack();

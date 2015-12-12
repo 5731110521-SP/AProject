@@ -3,7 +3,9 @@ package character;
 import com.sun.org.apache.regexp.internal.recompile;
 
 import entity.Player;
+import entity.SuperShootable;
 import render.IRenderable;
+import render.RenderableHolder;
 import render.Resource;
 
 public class Reborn extends Character implements IRenderable{
@@ -60,7 +62,7 @@ public class Reborn extends Character implements IRenderable{
 
 	@Override
 	public void stand() {
-		if (isRun || isJump || isAttack || isShoot)
+		if (isRun || isJump || isAttack || isShoot || isSuperAttack)
 			return;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
 		for (int a : countPic)
@@ -69,7 +71,7 @@ public class Reborn extends Character implements IRenderable{
 
 	@Override
 	public void picAttackUpdate() {
-		if (!isAttack)
+		if (!isAttack || isSuperAttack)
 			return;
 		if(countPic[2] == 0) {
 			character = Resource.reborn.getSubimage(20, 1097, 37, 42);
@@ -161,9 +163,59 @@ public class Reborn extends Character implements IRenderable{
 	}
 
 	@Override
-	public void picSuperAttack() {
-		// TODO Auto-generated method stub
+	public void picSuperAttack() {	
+		if(!isSuperAttack) return;
+		if(countPic[4] == 0)
+			character = Resource.reborn.getSubimage(13, 1184, 36, 40);
+		else if(countPic[4] == 1)
+			character = Resource.reborn.getSubimage(56, 1181, 37, 44);
+		else if(countPic[4] == 2)
+			character = Resource.reborn.getSubimage(97, 1183, 38, 42);
+		else if(countPic[4] == 3)
+			character = Resource.reborn.getSubimage(138, 1184, 38, 40);
+		else if(countPic[4] == 4)
+			character = Resource.reborn.getSubimage(180, 1184, 40, 41);
+		else if(countPic[4] == 5)
+			character = Resource.reborn.getSubimage(224, 1183, 38, 41);
+		else if(countPic[4] == 6)
+			character = Resource.reborn.getSubimage(269, 1184, 38, 41);
+		else if(countPic[4] == 7)
+			character = Resource.reborn.getSubimage(312, 1184, 38, 42);
+		else if(countPic[4] == 8)
+			character = Resource.reborn.getSubimage(353, 1185, 40, 39);
+		else if(countPic[4] == 9)
+			character = Resource.rebornBomb1.getSubimage(0, 0, 113, 59);
+		else if(countPic[4] == 10)
+			character = Resource.rebornBomb2.getSubimage(0, 0, 113, 59);
+		else if(countPic[4] == 11)
+			character = Resource.rebornBomb3.getSubimage(0, 0, 113, 59);
+		countPic[4]++;
+		if(countPic[4] >= 12){
+			isAttack=false;
+			isSuperAttack = false;
+			countPic[4] = 0;
+		}
+		if(countPic[4]>=9 && countPic[4]<12) isAttack=true;
 		
+//		count++;
+//		if(count==10){
+//			count=1;
+//			isSuperAttack = false;
+//		}
 	}
+	
+//	public void superAttack() {
+//		if (isAttack || isShoot || isJump){
+//			return;
+//		}
+//		if(isSuperAttack){
+//			RenderableHolder.getInstance().add(new SuperShootable(this));
+//		}
+//		if (powerCount >= 4) {
+//			isSuperAttack = true;
+//			powerCount = 0;
+//			RenderableHolder.getInstance().add(new SuperShootable(this));
+//		}
+//	}
 
 }

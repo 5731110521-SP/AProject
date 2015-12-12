@@ -6,7 +6,9 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import character.Character;
+import character.Luffy;
 import character.Pikachu;
+import character.Reborn;
 import render.GameScreen;
 import render.IRenderable;
 import render.RenderableHolder;
@@ -41,6 +43,19 @@ public class SuperShootable implements IRenderable {
 			 width=33;
 			 height=221;
 			 power=10;
+		}else if(shooter instanceof Reborn){
+			shootPic = new BufferedImage[8];
+			shootPic[0] = Resource.superAttack[3].getSubimage(446, 1183, 14, 41);
+			shootPic[1] = Resource.superAttack[3].getSubimage(468, 1170, 18, 51);
+			shootPic[2] = Resource.superAttack[3].getSubimage(494, 1168, 17, 54);
+			shootPic[3] = Resource.superAttack[3].getSubimage(514, 1184, 34, 41);
+			shootPic[4] = Resource.superAttack[3].getSubimage(556, 1184, 38, 40);
+			shootPic[5] = Resource.superAttack[3].getSubimage(603, 1180, 45, 42);
+			shootPic[6] = Resource.superAttack[3].getSubimage(654, 1174, 51, 50);
+			shootPic[7] = Resource.superAttack[3].getSubimage(709, 1173, 55, 50);
+			 width=14;
+			 height=41;
+			 power=10;
 		}
 		
 		x = enemy.getX() - enemy.getXp() + (enemy.getWidth() / 2);
@@ -55,6 +70,8 @@ public class SuperShootable implements IRenderable {
 		g.drawImage(image, x, y, null);
 		x += image.getWidth() / 2;
 		if (shooter instanceof Pikachu) {
+			y += image.getHeight() + 100 -(enemy.getHeight()/2 -height / 2);
+		}else if(shooter instanceof Reborn){
 			y += image.getHeight() + 100 -(enemy.getHeight()/2 -height / 2);
 		}
 	}
@@ -84,6 +101,18 @@ public class SuperShootable implements IRenderable {
 	public void update() {
 		if(isDestroy) isVisible=false;
 		if (shooter instanceof Pikachu) {
+			if(count<=1){
+				image = shootPic[count];
+			}else if (count <= 3) {
+				image = shootPic[count/2];
+			}else {
+				image = shootPic[2];
+				isDestroy = true;
+			}
+			y -= image.getHeight() + 80 -(enemy.getHeight()/2 -height / 2);
+			x -= image.getWidth() / 2;
+			count++;
+		}else if(shooter instanceof Reborn){
 			if(count<=1){
 				image = shootPic[count];
 			}else if (count <= 3) {
