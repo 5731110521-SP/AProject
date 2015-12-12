@@ -1,6 +1,7 @@
 package character;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -61,6 +62,7 @@ public abstract class Character implements Playable {
 	}
 
 	public void transform() {
+		if(lose) return;
 		AffineTransform at = new AffineTransform();
 		if (!isRight) {
 			at = AffineTransform.getScaleInstance(-1, 1);
@@ -212,11 +214,16 @@ public abstract class Character implements Playable {
 //				.abs((y - yp + height / 2.0) - (ch.y - ch.yp + ch.height / 2.0)) <= height / 2.0 + ch.height / 2.0) {
 //			return true;
 //		}
-		if (Math.abs((x - xp + getCharacter().getWidth() / 2.0) - (ch.x - ch.xp + ch.getCharacter().getWidth() / 2.0)) <= getCharacter().getWidth() / 2.0 + ch.getCharacter().getWidth() / 2.0 && Math
-				.abs((y - yp + getCharacter().getHeight() / 2.0) - (ch.y - ch.yp + ch.getCharacter().getHeight() / 2.0)) <= getCharacter().getHeight() / 2.0 + ch.getCharacter().getHeight() / 2.0) {
-			return true;
-		}
-		return false;
+//		if (Math.abs((x - xp + getCharacter().getWidth() / 2.0) - (ch.x - ch.xp + ch.getCharacter().getWidth() / 2.0)) <= getCharacter().getWidth() / 2.0 + ch.getCharacter().getWidth() / 2.0 && Math
+//				.abs((y - yp + getCharacter().getHeight() / 2.0) - (ch.y - ch.yp + ch.getCharacter().getHeight() / 2.0)) <= getCharacter().getHeight() / 2.0 + ch.getCharacter().getHeight() / 2.0) {
+//			return true;
+//		}
+//		return false;
+//		Rectangle p = new Rectangle(x, y, width/2, height/2);
+//		Rectangle m = new Rectangle(ch.x, ch.y, ch.width/2, ch.height/2);
+		Rectangle p = new Rectangle(x-xp, y-yp, character.getWidth(), character.getHeight());
+		Rectangle m = new Rectangle(ch.x-ch.xp, ch.y-ch.yp, ch.getCharacter().getWidth(), ch.getCharacter().getHeight());
+		return p.intersects(m);
 	}
 
 	public BufferedImage getCharacter() {
