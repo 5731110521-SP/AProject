@@ -27,6 +27,7 @@ public class Resource {
 	public static BufferedImage[] bg = new BufferedImage[2];
 	public static BufferedImage[] pic = new BufferedImage[6];
 	public static BufferedImage hpbarUnder,hpbarUpper;
+	public static BufferedImage mute1,mute2;
 	public static AudioClip pikachu1;
 	public static AudioClip pikachu2;
 	public static AudioClip rebornGun;
@@ -34,6 +35,7 @@ public class Resource {
 	public static AudioClip fencing;
 	public static AudioClip pikaShoot;
 	public static AudioClip jump;
+	public static AudioClip musicHome;
 	public static BufferedImage[] button = new BufferedImage[6];
 	public static BufferedImage[] choose = new BufferedImage[7];
 	
@@ -89,6 +91,9 @@ public class Resource {
 			choose[4] = ImageIO.read(loader.getResource("res/choosena.png"));
 			choose[5] = ImageIO.read(loader.getResource("res/chooseku.png"));
 			
+			mute1 = ImageIO.read(loader.getResource("res/mute1.png"));
+			mute2 = ImageIO.read(loader.getResource("res/mute2.png"));
+			
 			pikachu1 = Applet.newAudioClip((loader.getResource("res/pika.wav")).toURI().toURL());
 			pikachu2 = Applet.newAudioClip((loader.getResource("res/thunder.wav")).toURI().toURL());
 			rebornGun = Applet.newAudioClip((loader.getResource("res/reborngun.wav")).toURI().toURL());
@@ -96,6 +101,7 @@ public class Resource {
 			fencing = Applet.newAudioClip((loader.getResource("res/fencing.wav")).toURI().toURL());
 			pikaShoot = Applet.newAudioClip((loader.getResource("res/pikashoot.wav")).toURI().toURL());
 			jump = Applet.newAudioClip((loader.getResource("res/jump.wav")).toURI().toURL());
+			musicHome = Applet.newAudioClip(loader.getResource("res/tk_heaven.wav"));
 //			run = Applet.newAudioClip((loader.getResource("res/run.wav")).toURI().toURL());
 			System.out.println("try");
 		}catch(Exception e){

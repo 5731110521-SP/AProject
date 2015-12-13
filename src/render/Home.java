@@ -33,6 +33,7 @@ public class Home extends JPanel{
 		this.setDoubleBuffered(true);
 		this.setVisible(true);
 		this.requestFocus();
+		Resource.musicHome.loop();
 		button = new BufferedImage[3];
 		next=-1;
 		

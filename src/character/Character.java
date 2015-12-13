@@ -14,6 +14,7 @@ import input.InputUtility;
 import render.IRenderable;
 import render.RenderableHolder;
 import render.Resource;
+import render.Setting;
 
 public abstract class Character implements Playable {
 
@@ -247,7 +248,7 @@ public abstract class Character implements Playable {
 	}
 
 	public void update() {
-		if (!InputUtility.getKeyPressed(player.getLeft()) && !InputUtility.getKeyPressed(player.getRight())) {
+		if (!InputUtility.getKeyPressed(Setting.key[0]) && !InputUtility.getKeyPressed(Setting.key[1])){
 			isRun = false;
 		}
 		countShoot++;
