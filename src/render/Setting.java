@@ -54,6 +54,20 @@ public class Setting extends JPanel{
 	private JLabel player2 = new JLabel("Player2");
 	private JLabel setting = new JLabel("Setting");
 	private int index = -1;
+	static{
+		key[0]=KeyEvent.VK_A;
+		key[1]=KeyEvent.VK_D;
+		key[2]=KeyEvent.VK_W;
+		key[3]=KeyEvent.VK_F;
+		key[4]=KeyEvent.VK_X;
+		key[5]=KeyEvent.VK_Z;
+		key[6]=KeyEvent.VK_LEFT;
+		key[7]=KeyEvent.VK_RIGHT;
+		key[8]=KeyEvent.VK_UP;
+		key[9]=KeyEvent.VK_DOWN;
+		key[10]=KeyEvent.VK_ENTER;
+		key[11]=KeyEvent.VK_BACK_SLASH;
+	}
 	
 	public Setting() {
 		super(new BorderLayout());
@@ -303,19 +317,6 @@ public class Setting extends JPanel{
 		this.setDoubleBuffered(true);
 		this.setVisible(true);
 		this.requestFocus();
-		
-		key[0]=KeyEvent.VK_A;
-		key[1]=KeyEvent.VK_D;
-		key[2]=KeyEvent.VK_W;
-		key[3]=KeyEvent.VK_F;
-		key[4]=KeyEvent.VK_X;
-		key[5]=KeyEvent.VK_Z;
-		key[6]=KeyEvent.VK_LEFT;
-		key[7]=KeyEvent.VK_RIGHT;
-		key[8]=KeyEvent.VK_UP;
-		key[9]=KeyEvent.VK_DOWN;
-		key[10]=KeyEvent.VK_ENTER;
-		key[11]=KeyEvent.VK_BACK_SLASH;
 		
 		l[0]=new JLabel();
 		l[1]=new JLabel();

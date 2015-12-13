@@ -2,22 +2,27 @@ package render;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+import entity.Player;
 import input.InputUtility;
 
 public class Choose extends JPanel {
 	private int level;
+	private Player player;
 	private int[] x;
 	private int choose,choosed;
 
-	public Choose(int level,int choosed) {
+	public Choose(int level,int choosed,int player) {
 		super();
 		this.setPreferredSize(new Dimension(640, 480));
 		this.setBackground(Color.GRAY);
@@ -25,6 +30,8 @@ public class Choose extends JPanel {
 		this.setVisible(true);
 		this.requestFocus();
 		this.level = level;
+		if(player==1)this.player=Login.player1;
+		else this.player=Login.player2;
 		x = new int[6];
 		for (int i : x) {
 			i = 0;
@@ -163,6 +170,12 @@ public class Choose extends JPanel {
 		// if(level>=3)g2.drawImage(Resource.choose[3], 11, 355, null);
 		// if(level>=4)g2.drawImage(Resource.choose[0], 483, 303, null);
 		// if(level>=5)g2.drawImage(Resource.choose[5], 7, 83, null);
+		
+		g2.setFont(new Font("Tahoma", Font.BOLD, 30));
+		FontMetrics fm = g2.getFontMetrics();
+		Rectangle2D r2 = fm.getStringBounds(player.getName()+" choose your Character.", g2);
+		g2.setColor(Color.WHITE);
+		g2.drawString(player.getName()+" choose your Character.", GameScreen.width/2-(int)r2.getWidth()/2, 40);
 	}
 
 	public int update() {
