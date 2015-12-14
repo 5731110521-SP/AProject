@@ -11,7 +11,7 @@ public class Kurosaki extends Character implements IRenderable{
 		indexC = 5;
 		width = 44;
 		height = 46;
-		y = 373 - height;
+		y = y - height;
 		this.player = player;
 		character = Resource.bleach.getSubimage(5, 27, 44, 46);
 	}

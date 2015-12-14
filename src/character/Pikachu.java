@@ -22,7 +22,7 @@ public class Pikachu extends Character implements IRenderable {
 		indexC = 0;
 		width = 25;
 		height = 30;
-		y = 373 - height;
+		y = y - height;
 		this.player = player;
 		character = Resource.pikachu.getSubimage(102, 4, 25, 28);
 	}

@@ -24,10 +24,13 @@ public class Resource {
 	public static BufferedImage bleach;
 	public static BufferedImage bleach2;
 	public static BufferedImage[] superAttack = new BufferedImage[6];;
-	public static BufferedImage[] bg = new BufferedImage[2];
+	public static BufferedImage[] bg = new BufferedImage[13];
+	public static BufferedImage bgHome;
 	public static BufferedImage[] pic = new BufferedImage[6];
 	public static BufferedImage hpbarUnder,hpbarUpper;
 	public static BufferedImage mute1,mute2;
+	public static BufferedImage enter2;
+	
 	public static AudioClip pikachu1;
 	public static AudioClip pikachu2;
 	public static AudioClip rebornGun;
@@ -36,6 +39,13 @@ public class Resource {
 	public static AudioClip pikaShoot;
 	public static AudioClip jump;
 	public static AudioClip musicHome;
+	public static AudioClip choosePikachu;
+	public static AudioClip chooseLuffy;
+	public static AudioClip chooseNaruto;
+	public static AudioClip chooseNatsu;
+	public static AudioClip chooseKurosaki;
+	public static AudioClip chooseReborn;
+	public static AudioClip buttonSound;
 	public static BufferedImage[] button = new BufferedImage[6];
 	public static BufferedImage[] choose = new BufferedImage[7];
 	
@@ -64,8 +74,23 @@ public class Resource {
 			superAttack[0] = ImageIO.read(loader.getResource("res/pickachu2.png"));
 			superAttack[3] = ImageIO.read(loader.getResource("res/reborn.png"));
 			
-			bg[0]= ImageIO.read(loader.getResource("res/bg-01.png"));
-			bg[1]= ImageIO.read(loader.getResource("res/home.png"));
+//			bg[0]= ImageIO.read(loader.getResource("res/bg-01.png"));
+//			bg[1]= ImageIO.read(loader.getResource("res/home.png"));
+			bgHome = ImageIO.read(loader.getResource("res/home.png"));
+			bg[0] = ImageIO.read(loader.getResource("res/bg1.png"));
+			bg[1] = ImageIO.read(loader.getResource("res/bg2.png"));
+			bg[2] = ImageIO.read(loader.getResource("res/bg3.png"));
+			bg[3] = ImageIO.read(loader.getResource("res/bg4.png"));
+			bg[4] = ImageIO.read(loader.getResource("res/bg5.png"));
+			bg[5] = ImageIO.read(loader.getResource("res/bg6.png"));
+			bg[6] = ImageIO.read(loader.getResource("res/bg7.png"));
+			bg[7] = ImageIO.read(loader.getResource("res/bg8.png"));
+			bg[8] = ImageIO.read(loader.getResource("res/bg9.png"));
+			bg[9] = ImageIO.read(loader.getResource("res/bg10.png"));
+			bg[10] = ImageIO.read(loader.getResource("res/bg11.png"));
+			bg[11] = ImageIO.read(loader.getResource("res/bg12.png"));
+			bg[12] = ImageIO.read(loader.getResource("res/bg13.png"));
+			
 			hpbarUnder = ImageIO.read(loader.getResource("res/hpbarUnder-02.png"));
 			hpbarUpper = ImageIO.read(loader.getResource("res/hpbarUpper-02.png"));
 			
@@ -93,7 +118,16 @@ public class Resource {
 			
 			mute1 = ImageIO.read(loader.getResource("res/mute1.png"));
 			mute2 = ImageIO.read(loader.getResource("res/mute2.png"));
+			enter2 = ImageIO.read(loader.getResource("res/enter2.png"));
 			
+			choosePikachu = Applet.newAudioClip((loader.getResource("res/charpikachu.wav")).toURI().toURL());
+			chooseLuffy = Applet.newAudioClip((loader.getResource("res/charluffy.wav")).toURI().toURL());
+			chooseNaruto = Applet.newAudioClip((loader.getResource("res/charnaruto.wav")).toURI().toURL());
+			chooseNatsu = Applet.newAudioClip((loader.getResource("res/charnatsu.wav")).toURI().toURL());
+			chooseReborn = Applet.newAudioClip((loader.getResource("res/charreborn.wav")).toURI().toURL());
+			chooseKurosaki = Applet.newAudioClip((loader.getResource("res/charichigo.wav")).toURI().toURL());
+			musicHome = Applet.newAudioClip((loader.getResource("res/tk_heaven.wav")).toURI().toURL());
+			buttonSound = Applet.newAudioClip((loader.getResource("res/button5.wav")).toURI().toURL());
 			pikachu1 = Applet.newAudioClip((loader.getResource("res/pika.wav")).toURI().toURL());
 			pikachu2 = Applet.newAudioClip((loader.getResource("res/thunder.wav")).toURI().toURL());
 			rebornGun = Applet.newAudioClip((loader.getResource("res/reborngun.wav")).toURI().toURL());
@@ -101,7 +135,7 @@ public class Resource {
 			fencing = Applet.newAudioClip((loader.getResource("res/fencing.wav")).toURI().toURL());
 			pikaShoot = Applet.newAudioClip((loader.getResource("res/pikashoot.wav")).toURI().toURL());
 			jump = Applet.newAudioClip((loader.getResource("res/jump.wav")).toURI().toURL());
-			musicHome = Applet.newAudioClip(loader.getResource("res/tk_heaven.wav"));
+			
 //			run = Applet.newAudioClip((loader.getResource("res/run.wav")).toURI().toURL());
 			System.out.println("try");
 		}catch(Exception e){

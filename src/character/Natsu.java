@@ -11,7 +11,7 @@ public class Natsu extends Character implements IRenderable{
 		indexC = 4;
 		width = 42;
 		height = 55;
-		y=373-height;
+		y=y-height;
 		this.player = player;
 		character = Resource.natsu.getSubimage(471, 224, 42, 55);
 	}

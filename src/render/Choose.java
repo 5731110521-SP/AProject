@@ -9,8 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entity.Player;
@@ -21,7 +24,8 @@ public class Choose extends JPanel {
 	private Player player;
 	private int[] x;
 	private int choose,choosed;
-
+	public String nameChar = "";
+	
 	public Choose(int level,int choosed,int player) {
 		super();
 		this.setPreferredSize(new Dimension(640, 480));
@@ -38,31 +42,27 @@ public class Choose extends JPanel {
 		}
 		choose = -1;
 		this.choosed=choosed;
-
+		
 		this.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				InputUtility.mouseLeftRelease();
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
@@ -70,27 +70,57 @@ public class Choose extends JPanel {
 				if (arg0.getX() >= 483 && arg0.getX() <= 483 + Resource.choose[0].getWidth() && arg0.getY() >= 303
 						&& arg0.getY() <= 303 + Resource.choose[0].getHeight()) {
 					choose = 0;
-					if(level>=4 && choosed!=0)InputUtility.mouseLeftDown();
+					if(level>=4 && choosed!=0){
+						InputUtility.mouseLeftDown();
+						Resource.buttonSound.play();
+						Resource.choosePikachu.play();
+						nameChar = "Pikachu";
+					}
 				} else if (arg0.getX() >= 430 && arg0.getX() <= 430 + Resource.choose[1].getWidth() && arg0.getY() >= 95
 						&& arg0.getY() <= 95 + Resource.choose[1].getHeight()) {
 					choose = 1;
-					if(choosed!=1)InputUtility.mouseLeftDown();
+					if(choosed!=1){
+						InputUtility.mouseLeftDown();
+						Resource.buttonSound.play();
+						Resource.chooseLuffy.play();
+						nameChar = "Luffy";
+					}
 				} else if (arg0.getX() >= 186 && arg0.getX() <= 186 + Resource.choose[2].getWidth()
 						&& arg0.getY() >= 283 && arg0.getY() <= 283 + Resource.choose[2].getHeight()) {
 					choose = 2;
-					if(level>=2 && choosed!=2)InputUtility.mouseLeftDown();
+					if(level>=2 && choosed!=2){
+						InputUtility.mouseLeftDown();
+						Resource.buttonSound.play();
+						Resource.chooseNaruto.play();
+						nameChar = "Naruto";
+					}
 				} else if (arg0.getX() >= 11 && arg0.getX() <= 11 + Resource.choose[3].getWidth() && arg0.getY() >= 355
 						&& arg0.getY() <= 355 + Resource.choose[3].getHeight()) {
 					choose = 3;
-					if(level>=3 && choosed!=3)InputUtility.mouseLeftDown();
+					if(level>=3 && choosed!=3){
+						InputUtility.mouseLeftDown();
+						Resource.buttonSound.play();
+						Resource.chooseReborn.play();
+						nameChar = "Reborn";
+					}
 				} else if (arg0.getX() >= 190 && arg0.getX() <= 190 + Resource.choose[4].getWidth()
 						&& arg0.getY() >= 103 && arg0.getY() <= 103 + Resource.choose[4].getHeight()) {
 					choose = 4;
-					if(choosed!=4) InputUtility.mouseLeftDown();
+					if(choosed!=4) {
+						InputUtility.mouseLeftDown();
+						Resource.buttonSound.play();
+						Resource.chooseNatsu.play();
+						nameChar = "Natsu";
+					}
 				} else if (arg0.getX() >= 7 && arg0.getX() <= 7 + Resource.choose[5].getWidth() && arg0.getY() >= 83
 						&& arg0.getY() <= 83 + Resource.choose[5].getHeight()) {
 					choose = 5;
-					if(level>=5 && choosed!=5)InputUtility.mouseLeftDown();
+					if(level>=5 && choosed!=5){
+						InputUtility.mouseLeftDown();
+						Resource.buttonSound.play();
+						Resource.chooseKurosaki.play();
+						nameChar = "Kurosaki";
+					}
 				}
 			}
 		});
@@ -139,11 +169,11 @@ public class Choose extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+		
 			}
 		});
 
+		
 	}
 
 	@Override
@@ -171,7 +201,7 @@ public class Choose extends JPanel {
 		// if(level>=4)g2.drawImage(Resource.choose[0], 483, 303, null);
 		// if(level>=5)g2.drawImage(Resource.choose[5], 7, 83, null);
 		
-		g2.setFont(new Font("Tahoma", Font.BOLD, 30));
+		g2.setFont(new Font("Franklin Gothic ...", Font.BOLD, 30));
 		FontMetrics fm = g2.getFontMetrics();
 		Rectangle2D r2 = fm.getStringBounds(player.getName()+" choose your Character.", g2);
 		g2.setColor(Color.WHITE);
@@ -181,6 +211,7 @@ public class Choose extends JPanel {
 	public int update() {
 		if (InputUtility.isLeftClickTriggered()) {
 			InputUtility.updateInputState();
+			JOptionPane.showMessageDialog(null, "Your character is "+nameChar);
 			setVisible(false);
 			return choose;
 		}

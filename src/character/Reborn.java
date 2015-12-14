@@ -15,7 +15,7 @@ public class Reborn extends Character implements IRenderable{
 		indexC = 3;
 		width = 37;
 		height = 39;
-		y = 373 - height;
+		y = y - height;
 		this.player = player;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
 	}

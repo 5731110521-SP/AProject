@@ -1,3 +1,4 @@
+
 package character;
 
 import input.InputUtility;
@@ -21,7 +22,8 @@ public class Luffy extends Character implements IRenderable {
 		indexC = 1;
 		width = 60;
 		height = 58;
-		y = 373 - height;
+		y = y - height;
+		System.out.println(y);
 		this.player = player;
 		character = Resource.luffy.getSubimage(278, 40, 60, 58);
 
@@ -147,7 +149,7 @@ public class Luffy extends Character implements IRenderable {
 				isSuperAttack = false;
 				countPic[4] = 0;
 			}
-			if(countPic[4]>=3 && countPic[4]<5) isAttack=true;
+//			if(countPic[4]>=3 && countPic[4]<5) isAttack=true;
 	}
 
 }

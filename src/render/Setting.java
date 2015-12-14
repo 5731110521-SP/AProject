@@ -32,7 +32,7 @@ public class Setting extends JPanel{
 		super.paintComponents(g);
 	}
 
-	private static final Font FONT = new Font("Tahoma", Font.BOLD, 20);
+	private static final Font FONT = new Font("Century Gothic", Font.BOLD, 20);
 	BufferedImage image1 = Resource.mute1;
 	BufferedImage image2 = Resource.mute2;
 	private int change = 0;
@@ -52,7 +52,7 @@ public class Setting extends JPanel{
 	private JLabel[] l = new JLabel[12];
 	private JLabel player1 = new JLabel("Player1");
 	private JLabel player2 = new JLabel("Player2");
-	private JLabel setting = new JLabel("Setting");
+	private JLabel setting = new JLabel("SETTING");
 	private int index = -1;
 	static{
 		key[0]=KeyEvent.VK_A;
@@ -72,14 +72,15 @@ public class Setting extends JPanel{
 	public Setting() {
 		super(new BorderLayout());
 		this.setPreferredSize(new Dimension(640,480));
-		setting.setFont(FONT);
-		setting.setForeground(Color.BLACK);
+		setting.setFont(new Font("Broadway",Font.PLAIN,50));
+		setting.setForeground(Color.WHITE);
 		player1.setFont(FONT);
 		player1.setForeground(Color.BLACK);
 		player2.setFont(FONT);
 		player2.setForeground(Color.BLACK);
 		JPanel north = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		north.setPreferredSize(new Dimension(640,80));
+		north.setBackground(Color.DARK_GRAY);
 		north.add(setting);
 		north.setVisible(true);
 		this.add(north,BorderLayout.NORTH);
@@ -159,6 +160,7 @@ public class Setting extends JPanel{
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				Resource.buttonSound.play();
 				if(change == 0){
 					o.setImage(image2);
 					change = 1;

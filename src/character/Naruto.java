@@ -20,7 +20,7 @@ public class Naruto extends Character implements IRenderable {
 		indexC = 2;
 		width = 53;
 		height = 61;
-		y = 373 - height;
+		y = y - height;
 		this.player = player;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
 	}

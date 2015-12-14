@@ -68,12 +68,14 @@ public class Home extends JPanel{
 				if(arg0.getX()>=199 &&arg0.getX()<=199+238 && arg0.getY()>=247 && arg0.getY()<= 247+90){
 					next=0;
 					InputUtility.mouseLeftDown();
+					Resource.buttonSound.play();
 //				}else if(arg0.getX()>=189 &&arg0.getX()<=189+257 && arg0.getY()>=340 && arg0.getY()<= 340+60){
 //					next=1;
 //					InputUtility.mouseLeftDown();
 				}else if(arg0.getX()>=221 &&arg0.getX()<=221+202 && arg0.getY()>=343 && arg0.getY()<= 343+67){
 					next=2;
 					InputUtility.mouseLeftDown();
+					Resource.buttonSound.play();
 				}
 			}
 		});
@@ -111,7 +113,7 @@ public class Home extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(Resource.bg[1], 0, 0, null);
+		g2d.drawImage(Resource.bgHome, 0, 0, null);
 		g2d.drawImage(button[0], 199, 247, null);
 //		g2d.drawImage(button[1], 189, 340, null);
 		g2d.drawImage(button[2], 221, 343, null);

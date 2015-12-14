@@ -12,13 +12,13 @@ import entity.Player;
 import entity.Shootable;
 import entity.Time;
 import input.InputUtility;
+import render.GameScreen;
 import render.IRenderable;
 import render.RenderableHolder;
 import render.Resource;
 import render.Setting;
 
 public abstract class Character implements Playable {
-
 	BufferedImage character;
 	public int indexC, playeri;
 	protected int attackPower;
@@ -41,6 +41,8 @@ public abstract class Character implements Playable {
 		attackPower = ap;
 		defencePower = dp;
 		healthPoint = hp;
+		this.y = GameScreen.y;
+		System.out.println(y);
 		xp = 0;
 		yp = 0;
 		countShoot = 0;
@@ -65,7 +67,7 @@ public abstract class Character implements Playable {
 
 	public void draw(Graphics2D g) {
 		yp = character.getHeight() - height;
-		g.drawImage(character, x - xp, y - yp, character.getWidth(), character.getHeight(), null);
+		g.drawImage(character, x - xp, y - yp, (int)(character.getWidth()*1.5), (int)(character.getHeight()*1.5), null);
 		xp = 0;
 		yp = 0;
 	}
