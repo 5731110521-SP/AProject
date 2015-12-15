@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import entity.Player;
 import entity.Shootable;
+import entity.Time;
 import render.IRenderable;
 import render.RenderableHolder;
 import render.Resource;
@@ -23,6 +24,7 @@ public class Naruto extends Character implements IRenderable {
 		y = y - height;
 		this.player = player;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
+		transform();
 	}
 
 	@Override
@@ -48,33 +50,37 @@ public class Naruto extends Character implements IRenderable {
 	}
 
 	@Override
-	public void picJumpUpdate() {
+	public void picJumpUpdate(int i) {
 		if (countPic[1] < 3) {
 			if (countPic[1] == 0) {
 				character = Resource.naruto.getSubimage(1, 146, 42, 44);
-//				width = 42;
-//				height = 44;
+				// width = 42;
+				// height = 44;
 			} else if (countPic[1] == 1)
 				character = Resource.naruto.getSubimage(110, 135, 41, 68);
 			else if (countPic[1] == 2) {
 				character = Resource.naruto.getSubimage(163, 135, 51, 66);
-//				width = 51;
-//				height = 66;
+				// width = 51;
+				// height = 66;
 			}
 			if (countPic[1] == 3) {
 				isJump = false;
 				countPic[1] = 0;
 			}
 		}
-		if (count == 1)
+		if (count[i] == 1)
 			countPic[1] = 0;
-		else if (count == jumpMax + 1)
+		else if (count[i] == jumpMax + 1)
 			countPic[1] = 1;
-		else if (count == jumpMax * 2)
+		else if (count[i] == jumpMax * 2)
 			countPic[1] = 2;
 		else if (countPic[1] >= 2) {
 			countPic[1] = 0;
-			isJump = false;
+			if(i==0){
+				isJump = false;
+			}else{
+				isDoubleJump=false;
+			}
 		}
 	}
 
@@ -200,6 +206,7 @@ public class Naruto extends Character implements IRenderable {
 		countPic[4]++;
 		if (countPic[4] >= 17) {
 			isSuperAttack = false;
+			Time.isAlreadyStop=false;
 			countPic[4] = 0;
 		}
 

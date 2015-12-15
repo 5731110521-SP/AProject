@@ -4,7 +4,9 @@ import com.sun.org.apache.regexp.internal.recompile;
 
 import entity.Player;
 import entity.SuperShootable;
+import entity.Time;
 import render.IRenderable;
+import render.Login;
 import render.RenderableHolder;
 import render.Resource;
 
@@ -18,6 +20,7 @@ public class Reborn extends Character implements IRenderable{
 		y = y - height;
 		this.player = player;
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
+		transform();
 	}
 
 	@Override
@@ -36,28 +39,40 @@ public class Reborn extends Character implements IRenderable{
 	}
 
 	@Override
-	public void picJumpUpdate() {
-		if(countPic[1] < 3){
-			if(countPic[1] == 0) {
-				character = Resource.reborn.getSubimage(17, 577,33, 43);
-			}else if(countPic[1] == 1) {
-				character = Resource.reborn.getSubimage(102, 553,43, 46);
-			}else if(countPic[1] == 2) {
+	public void picJumpUpdate(int i) {
+		if (countPic[1] < 3) {
+			if (countPic[1] == 0) {
+				character = Resource.reborn.getSubimage(17, 577, 33, 43);
+			} else if (countPic[1] == 1) {
+				character = Resource.reborn.getSubimage(102, 553, 43, 46);
+			} else if (countPic[1] == 2) {
 				character = Resource.reborn.getSubimage(198, 585, 38, 41);
 			}
-			if(countPic[1] == 3) {
-				isJump=false;
+			if (countPic[1] == 3) {
+				if(i==0){
+					isJump = false;
+				}else{
+					isDoubleJump=false;
+				}
 				countPic[1] = 0;
 			}
 		}
-		if(count==1) countPic[1]=0;
-		else if(count==jumpMax+1) countPic[1]=1;
-		else if(count==jumpMax*2) countPic[1]=2;
-		else if(countPic[1]>=2){
+		if (count[i] == 1)
 			countPic[1] = 0;
-			isJump=false;
+		else if (count[i] == jumpMax + 1)
+			countPic[1] = 1;
+		else if (count[i] == jumpMax * 2)
+			countPic[1] = 2;
+		else if (countPic[1] >= 2) {
+			countPic[1] = 0;
+			if(i==0){
+				isJump = false;
+			}else{
+				isDoubleJump=false;
+			}
 		}
 	}
+
 
 	@Override
 	public void stand() {
@@ -66,6 +81,38 @@ public class Reborn extends Character implements IRenderable{
 		character = Resource.reborn.getSubimage(7, 492, 37, 39);
 		for (int a : countPic)
 			a = 0;
+	}
+	
+	public void superAttack() {
+		if (isAttack || isShoot || isJump) {
+			return;
+		}
+		if (powerCount >= 4) {
+			Time.isPlay = false;
+			isSuperAttack = true;
+			powerCount = 0;
+			RenderableHolder.getInstance().add(new SuperShootable(this));
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					try {
+						isSuperAttack = true;
+						Time.isPlay = false;
+						Thread.sleep(1200);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					synchronized (Login.player[playeri - 1]) {
+						Login.player[playeri - 1].notifyAll();
+					}
+
+				}
+			}).start();
+
+		}
 	}
 
 	@Override
@@ -190,11 +237,9 @@ public class Reborn extends Character implements IRenderable{
 			character = Resource.rebornBomb3.getSubimage(0, 0, 113, 59);
 		countPic[4]++;
 		if(countPic[4] >= 12){
-			isAttack=false;
-			isSuperAttack = false;
 			countPic[4] = 0;
+			isSuperAttack = false;
 		}
-		if(countPic[4]>=9 && countPic[4]<12) isAttack=true;
 		
 //		count++;
 //		if(count==10){

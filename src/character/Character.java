@@ -8,12 +8,14 @@ import java.awt.image.BufferedImage;
 
 import com.sun.org.apache.xml.internal.security.utils.HelperNodeList;
 
+import entity.GameLogic;
 import entity.Player;
 import entity.Shootable;
 import entity.Time;
 import input.InputUtility;
 import render.GameScreen;
 import render.IRenderable;
+import render.Login;
 import render.RenderableHolder;
 import render.Resource;
 import render.Setting;
@@ -28,13 +30,14 @@ public abstract class Character implements Playable {
 	protected boolean lose;
 	protected int x, y, xp, yp, width, height;
 	protected boolean isAttacked, isVisible;
-	protected boolean isRun, isRight, isJump, isAttack, isDoubleAttack, isShoot, isSuperAttack;
+	protected boolean isRun, isRight, isJump, isDoubleJump, isTripleJump, isAttack, isDoubleAttack, isShoot,
+			isSuperAttack;
 	protected boolean flashing;
 	protected int flashCounter, flashDurationCounter, counter, countShoot;
 	protected Player player;
 	protected Character enemy;
-	protected int jumpMax = 6;
-	protected int count = 1;
+	protected int jumpMax = 4;
+	protected int count[] = new int[2];
 	protected int[] countPic = new int[6];
 
 	public Character(int player, int ap, int dp, int hp) {
@@ -42,7 +45,6 @@ public abstract class Character implements Playable {
 		defencePower = dp;
 		healthPoint = hp;
 		this.y = GameScreen.y;
-		System.out.println(y);
 		xp = 0;
 		yp = 0;
 		countShoot = 0;
@@ -50,11 +52,16 @@ public abstract class Character implements Playable {
 		isAttacked = false;
 		isRun = false;
 		isJump = false;
+		count[0] = 1;
+		count[1] = 1;
+		isDoubleJump = false;
+		isTripleJump = false;
 		isRight = true;
 		isShoot = false;
 		flashing = false;
 		isVisible = true;
-		playeri=player;
+		playeri = player;
+		isSuperAttack=false;
 		if (player == 1) {
 			x = 100;
 		} else {
@@ -67,7 +74,8 @@ public abstract class Character implements Playable {
 
 	public void draw(Graphics2D g) {
 		yp = character.getHeight() - height;
-		g.drawImage(character, x - xp, y - yp, (int)(character.getWidth()*1.5), (int)(character.getHeight()*1.5), null);
+		g.drawImage(character, x - xp, y - yp, (int) (character.getWidth() * 1.5), (int) (character.getHeight() * 1.5),
+				null);
 		xp = 0;
 		yp = 0;
 	}
@@ -106,54 +114,100 @@ public abstract class Character implements Playable {
 	}
 
 	public void jump() {
-		if (isJump || isAttack || isShoot || isSuperAttack) {
+		if (isAttack || isShoot || isSuperAttack) {
 			// System.out.println("re");
 			return;
 		}
-		// System.out.println("in");
-		isJump = true;
 
+		if (isJump) {
+			if (!isDoubleJump && !isTripleJump && count[0] > jumpMax && count[0] <= jumpMax * 2 - 2) {
+				System.out.println("double");
+				isDoubleJump = true;
+				isTripleJump = true;
+			}
+			return;
+		}
+
+		isJump = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				synchronized (character) {
+				synchronized (GameLogic.character[playeri - 1]) {
 					while (true) {
+						// double
+						if (isDoubleJump) {
+
+							while (true) {
+								try {
+									GameLogic.character[playeri - 1].wait();
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								if (Time.isPlay) {
+									if (count[1] <= jumpMax) {
+										y -= 20;
+										// System.out.println(count);
+										count[1]++;
+									} else if (count[1] > jumpMax && count[1] <= jumpMax * 2) {
+										y += 20;
+										count[1]++;
+									} else {
+										count[1] = 1;
+										// System.out.println("break");
+									}
+
+									picJumpUpdate(1);
+									transform();
+								}
+								if (!isDoubleJump) {
+									count[1] = 1;
+									break;
+								}
+							}
+						}
+
 						try {
-							Thread.sleep(100);
+							GameLogic.character[playeri - 1].wait();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-						// System.out.println("while");
-						if (count <= jumpMax) {
-							y -= 20;
-							// System.out.println(count);
-							count++;
-						} else if (count > jumpMax && count <= jumpMax * 2) {
-							y += 20;
-							count++;
-						} else {
-							count = 1;
-							// System.out.println("break");
+						if (Time.isPlay) {
+
+							if (count[0] <= jumpMax) {
+								y -= 20;
+								// System.out.println(count);
+								count[0]++;
+							} else if (count[0] > jumpMax && count[0] <= jumpMax * 2) {
+								y += 20;
+								count[0]++;
+							} else {
+								count[0] = 1;
+								// System.out.println("break");
+							}
+
+							picJumpUpdate(0);
+							transform();
 						}
 
-						picJumpUpdate();
-
 						if (!isJump) {
-							count = 1;
+							count[0] = 1;
+							isTripleJump = false;
 							break;
 						}
 					}
+
 				}
 			}
+
 		}).start();
 	}
 
 	public void attackUpdate() {
-		if ((isAttack) && collideWith(enemy) && !isDoubleAttack) {
+		if ((isAttack || isSuperAttack) && collideWith(enemy) && !isDoubleAttack) {
 			enemy.setAttacked(true);
 			enemy.attacked(attackPower);
 			isDoubleAttack = true;
-			powerCount++;
+			if(!isSuperAttack)powerCount++;
 		}
 
 		if (isAttacked && flashing && flashDurationCounter % 2 == 0) {
@@ -200,9 +254,29 @@ public abstract class Character implements Playable {
 		if (isAttack || isShoot || isSuperAttack) {
 			return;
 		}
+		// isplay
 		if (powerCount >= 4) {
-			isSuperAttack = true;
 			powerCount = 0;
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					try {
+						isSuperAttack = true;
+						Time.isPlay = false;
+						Thread.sleep(1200);
+						// System.out.println("out sleep");
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					synchronized (Login.player[playeri - 1]) {
+						Login.player[playeri - 1].notifyAll();
+					}
+
+				}
+			}).start();
 		}
 	}
 
@@ -272,7 +346,7 @@ public abstract class Character implements Playable {
 			if (!InputUtility.getKeyPressed(Setting.key[0]) && !InputUtility.getKeyPressed(Setting.key[1])) {
 				isRun = false;
 			}
-		}else{
+		} else {
 			if (!InputUtility.getKeyPressed(Setting.key[6]) && !InputUtility.getKeyPressed(Setting.key[7])) {
 				isRun = false;
 			}
@@ -294,7 +368,7 @@ public abstract class Character implements Playable {
 
 	public abstract void picRunUpdate();
 
-	public abstract void picJumpUpdate();
+	public abstract void picJumpUpdate(int i);
 
 	public abstract void stand();
 
@@ -392,6 +466,10 @@ public abstract class Character implements Playable {
 
 	public boolean isSuperAttack() {
 		return isSuperAttack;
+	}
+
+	public boolean isJump() {
+		return isJump;
 	}
 
 }

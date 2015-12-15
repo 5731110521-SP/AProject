@@ -45,15 +45,16 @@ public class Name {
 				index = i;
 				break;
 			}
-		int level = getLevel(line.get(index));
+		int level = getLevel(line.get(index))+1;
 		line.remove(index);
 		addName(name, level);
 	}
 
 	public static void readFile() {
-		Scanner in = null;
+		
+		line= new ArrayList<String>();
 		try {
-			in = new Scanner(new File("Name.txt"));
+			Scanner in = new Scanner(new File("Name.txt"));
 			while (in.hasNext()) {
 				line.add(in.nextLine());
 			}

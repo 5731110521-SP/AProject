@@ -83,6 +83,9 @@ public class StatusBar implements IRenderable{
 		g.setColor(Color.GRAY);
 		if(c2.getPowerCount()>=4) g.setColor(new Color(67, 180, 252));
 		g.fillOval(538, 67, 12, 12);
+		
+		//time
+		g.drawImage(Resource.time, 0, 3, null);
 	}
 
 	@Override

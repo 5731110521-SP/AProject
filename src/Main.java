@@ -5,6 +5,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import character.Character;
 import render.Choose;
 import render.GameScreen;
 import render.Home;
@@ -17,8 +18,8 @@ import render.Winner;
 import entity.GameLogic;
 import entity.Player;
 import entity.Time;
-import logic.MyException;
 import logic.Name;
+import logic.NameBlankException;
 
 public class Main {
 	private static GameLogic logic;
@@ -43,28 +44,28 @@ public class Main {
 			int next = home(currentPanel);
 			currentPanel = home;
 			if (next == 0) {
-				
-				if (Login.player1 == null) {
+				Name.readFile();
+				if (Login.player[0] == null) {
 					login(currentPanel, 1);
 					currentPanel = login;
 					login(currentPanel, 2);
 					currentPanel = login;
 				}else{
-					Login.player1=new Player(1,Login.player1.getName());
-					Login.player2=new Player(2,Login.player2.getName());
+					Login.player[0]=new Player(1,Login.player[0].getName());
+					Login.player[1]=new Player(2,Login.player[1].getName());
 				}
 
 				
 				int Player1Choose,Player2Choose;
-				if (Login.player1.getLevel() <= Login.player2.getLevel()) {
-					Player1Choose = choose(currentPanel, 1, Login.player1.getLevel(), -1);
+				if (Login.player[0].getLevel() <= Login.player[1].getLevel()) {
+					Player1Choose = choose(currentPanel, 1, -1);
 					currentPanel = choose;
-					Player2Choose = choose(currentPanel, 2, Login.player2.getLevel(), Player1Choose);
+					Player2Choose = choose(currentPanel, 2,  Player1Choose);
 					currentPanel = choose;
 				} else {
-					Player2Choose = choose(currentPanel, 2, Login.player2.getLevel(), -1);
+					Player2Choose = choose(currentPanel, 2,  -1);
 					currentPanel = choose;
-					Player1Choose = choose(currentPanel, 1, Login.player1.getLevel(), Player2Choose);
+					Player1Choose = choose(currentPanel, 1, Player2Choose);
 					currentPanel = choose;
 				}
 
@@ -165,13 +166,13 @@ public class Main {
 				if (login.update()) {
 					return Name.findName(login.getName());
 				}
-			} catch (MyException e) {
+			} catch (NameBlankException e) {
 			}
 		}
 	}
 
-	private static int choose(JComponent currentPanel,int i, int level,int choosed) {
-		choose = new Choose(level,choosed, level);
+	private static int choose(JComponent currentPanel,int i, int choosed) {
+		choose = new Choose(choosed, i);
 		choose.setVisible(true);
 		frame.getContentPane().add(choose);
 		frame.remove(currentPanel);
@@ -210,9 +211,19 @@ public class Main {
 			}
 			screen.repaint();
 			logic.logicUpdate();
+			if(((Character)GameLogic.character[0]).isJump()){
+				synchronized (GameLogic.character[0]) {
+					GameLogic.character[0].notifyAll();
+				}
+			}
+			if(((Character)GameLogic.character[1]).isJump()){
+				synchronized (GameLogic.character[1]) {
+					GameLogic.character[1].notifyAll();
+				}
+			}
 			if (Time.isend)
 				return;
-		}
+		}	
 	}
 	
 	public static void winner(JComponent currentPanel) {

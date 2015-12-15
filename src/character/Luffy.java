@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 
 import entity.Player;
 import entity.Shootable;
+import entity.Time;
 import render.IRenderable;
 import render.RenderableHolder;
 import render.Resource;
@@ -23,9 +24,9 @@ public class Luffy extends Character implements IRenderable {
 		width = 60;
 		height = 58;
 		y = y - height;
-		System.out.println(y);
 		this.player = player;
 		character = Resource.luffy.getSubimage(278, 40, 60, 58);
+		transform();
 
 	}
 
@@ -46,21 +47,25 @@ public class Luffy extends Character implements IRenderable {
 
 	}
 	
-	public void picJumpUpdate(){
+	public void picJumpUpdate(int i) {
 		character = Resource.luffy.getSubimage(34 + countPic[1] * 47, 164, 47, 54);
-//		width = 47;
-//		height = 54;
-		if (count == 1)
+		// width = 47;
+		// height = 54;
+		if (count[i] == 1)
 			countPic[1] = 1;
-		else if (count == jumpMax + 1)
+		else if (count[i] == jumpMax + 1)
 			countPic[1] = 3;
-		else if (count == jumpMax + 2)
+		else if (count[i] == jumpMax + 2)
 			countPic[1] = 4;
-		else if (count == jumpMax * 2)
+		else if (count[i] == jumpMax * 2)
 			countPic[1] = 7;
 		else if (countPic[1] >= 7) {
 			countPic[1] = 0;
-			isJump=false;
+			if(i==0){
+				isJump = false;
+			}else{
+				isDoubleJump=false;
+			}
 		}
 	}
 
@@ -148,6 +153,7 @@ public class Luffy extends Character implements IRenderable {
 			if(countPic[4] >= 6){
 				isSuperAttack = false;
 				countPic[4] = 0;
+				Time.isAlreadyStop=false;
 			}
 //			if(countPic[4]>=3 && countPic[4]<5) isAttack=true;
 	}

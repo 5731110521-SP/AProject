@@ -1,6 +1,7 @@
 package character;
 
 import entity.Player;
+import entity.Time;
 import render.IRenderable;
 import render.Resource;
 
@@ -14,6 +15,7 @@ public class Natsu extends Character implements IRenderable{
 		y=y-height;
 		this.player = player;
 		character = Resource.natsu.getSubimage(471, 224, 42, 55);
+		transform();
 	}
 
 	@Override
@@ -43,32 +45,43 @@ public class Natsu extends Character implements IRenderable{
 	}
 
 	@Override
-	public void picJumpUpdate() {
-		if(countPic[1] < 3){
-			if(countPic[1] == 0){
+	public void picJumpUpdate(int i) {
+		if (countPic[1] < 3) {
+			if (countPic[1] == 0) {
 				character = Resource.natsu.getSubimage(61, 297, 39, 57);
-//				width=39;
-//				height=57;
-			}else if(countPic[1] == 1){
+				// width=39;
+				// height=57;
+			} else if (countPic[1] == 1) {
 				character = Resource.natsu.getSubimage(104, 308, 52, 47);
-//				width=52;
-//				height=47;
-			}else if(countPic[1] == 2){
+				// width=52;
+				// height=47;
+			} else if (countPic[1] == 2) {
 				character = Resource.natsu.getSubimage(163, 297, 51, 58);
-//				width=51;
-//				height=58;
+				// width=51;
+				// height=58;
 			}
-			if(countPic[1] == 3) {
-				isJump=false;
+			if (countPic[1] == 3) {
+				if(i==0){
+					isJump = false;
+				}else{
+					isDoubleJump=false;
+				}
 				countPic[1] = 0;
 			}
 		}
-		if(count==1) countPic[1]=0;
-		else if(count==jumpMax+1) countPic[1]=1;
-		else if(count==jumpMax*2) countPic[1]=2;
-		else if(countPic[1]>=2){
+		if (count[i] == 1)
 			countPic[1] = 0;
-			isJump=false;
+		else if (count[i] == jumpMax + 1)
+			countPic[1] = 1;
+		else if (count[i] == jumpMax * 2)
+			countPic[1] = 2;
+		else if (countPic[1] >= 2) {
+			countPic[1] = 0;
+			if(i==0){
+				isJump = false;
+			}else{
+				isDoubleJump=false;
+			}
 		}
 	}
 
@@ -170,6 +183,7 @@ public class Natsu extends Character implements IRenderable{
 			isAttack=false;
 			isSuperAttack = false;
 			countPic[4] = 0;
+			Time.isAlreadyStop=false;
 		}
 		if(countPic[4]>=5 && countPic[4]<8) isAttack=true;
 	}

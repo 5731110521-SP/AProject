@@ -69,11 +69,12 @@ public class GameScreen extends JComponent{
 		g2d.drawImage(Resource.bg[indexBg],0,0,640,480,null);
 //		g2d.setBackground(Color.WHITE);
 //		g2d.clearRect(0, 0, 640, 480);
-		
+		synchronized (RenderableHolder.getInstance().getRenderableList()) {
 			for(IRenderable entity : RenderableHolder.getInstance().getRenderableList()){
 				if(entity.isVisible() && !entity.getFlashing()){
 					entity.draw(g2d);
 				}
 			}
+		}
 	}
 }

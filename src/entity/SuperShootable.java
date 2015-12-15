@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -42,24 +43,24 @@ public class SuperShootable implements IRenderable {
 			shootPic[2] = Resource.superAttack[0].getSubimage(714, 249, 64, 211);
 			 width=33;
 			 height=221;
-			 power=10;
+			 power=20;
+			 image = shootPic[count];
+			 y= enemy.getY() + enemy.getHeight()-(height+200);
 		}else if(shooter instanceof Reborn){
-			shootPic = new BufferedImage[8];
-			shootPic[0] = Resource.superAttack[3].getSubimage(446, 1183, 14, 41);
-			shootPic[1] = Resource.superAttack[3].getSubimage(468, 1170, 18, 51);
-			shootPic[2] = Resource.superAttack[3].getSubimage(494, 1168, 17, 54);
-			shootPic[3] = Resource.superAttack[3].getSubimage(514, 1184, 34, 41);
-			shootPic[4] = Resource.superAttack[3].getSubimage(556, 1184, 38, 40);
-			shootPic[5] = Resource.superAttack[3].getSubimage(603, 1180, 45, 42);
-			shootPic[6] = Resource.superAttack[3].getSubimage(654, 1174, 51, 50);
-			shootPic[7] = Resource.superAttack[3].getSubimage(709, 1173, 55, 50);
-			 width=14;
-			 height=41;
-			 power=10;
+			shootPic = new BufferedImage[6];
+			shootPic[0] = Resource.superAttack[3].getSubimage(950, 1623, 20, 17);
+			shootPic[1] = Resource.superAttack[3].getSubimage(986, 1612, 33, 34);
+			shootPic[2] = Resource.superAttack[3].getSubimage(1033, 1604, 41, 38);
+			shootPic[3] = Resource.superAttack[3].getSubimage(1086, 1603, 44, 45);
+			shootPic[4] = Resource.superAttack[3].getSubimage(1138, 1599, 53, 53);
+			shootPic[5] = Resource.superAttack[3].getSubimage(1200, 1597, 59, 57);
+			 width=20;
+			 height=17;
+			 power=20;
+			 image = shootPic[count];
 		}
 		
 		x = enemy.getX() - enemy.getXp() + (enemy.getWidth() / 2);
-		y = enemy.getY() + enemy.getHeight()/2 +height / 2;
 
 		transform();
 
@@ -68,12 +69,6 @@ public class SuperShootable implements IRenderable {
 	@Override
 	public void draw(Graphics2D g) {
 		g.drawImage(image, x, y, null);
-		x += image.getWidth() / 2;
-		if (shooter instanceof Pikachu) {
-			y += image.getHeight() + 100 -(enemy.getHeight()/2 -height / 2);
-		}else if(shooter instanceof Reborn){
-			y += image.getHeight() + 100 -(enemy.getHeight()/2 -height / 2);
-		}
 	}
 
 	@Override
@@ -87,42 +82,47 @@ public class SuperShootable implements IRenderable {
 	}
 	
 	public boolean collideWith(Character ch) {
-		if (Math.abs(
-				(x + (width / 2.0)) - (ch.getX() - ch.getXp() + (ch.getCharacter().getWidth() / 2.0))) <= width / 2.0
-						+ ch.getCharacter().getWidth() / 2.0
-				&& Math.abs((y + height / 2.0) - (ch.getY() + ch.getCharacter().getHeight() / 2.0)) <= height / 2.0
-						+ ch.getCharacter().getHeight() / 2.0) {
-			return true;
-		}
-		return false;
+//		if (Math.abs(
+//				(x + (width / 2.0)) - (ch.getX() - ch.getXp() + (ch.getCharacter().getWidth() / 2.0))) <= width / 2.0
+//						+ ch.getCharacter().getWidth() / 2.0
+//				&& Math.abs((y + height / 2.0) - (ch.getY() + ch.getCharacter().getHeight() / 2.0)) <= height / 2.0
+//						+ ch.getCharacter().getHeight() / 2.0) {
+//			return true;
+//		}
+//		return false;
+		Rectangle p = new Rectangle(x, y , image.getWidth(), image.getHeight());
+		Rectangle m = new Rectangle(ch.getX() - ch.getXp(), ch.getY() - ch.getYp(), ch.getCharacter().getWidth(),
+				ch.getCharacter().getHeight());
+		return p.intersects(m);
 	}
 
 	@Override
 	public void update() {
 		if(isDestroy) isVisible=false;
 		if (shooter instanceof Pikachu) {
+			if(shooter.isSuperAttack())return;
 			if(count<=1){
 				image = shootPic[count];
+				y+=50;
 			}else if (count <= 3) {
 				image = shootPic[count/2];
+				y+=50;
 			}else {
 				image = shootPic[2];
 				isDestroy = true;
 			}
-			y -= image.getHeight() + 80 -(enemy.getHeight()/2 -height / 2);
-			x -= image.getWidth() / 2;
 			count++;
 		}else if(shooter instanceof Reborn){
-			if(count<=1){
+			if(shooter.isSuperAttack())return;
+			if(count<=4){
 				image = shootPic[count];
-			}else if (count <= 3) {
-				image = shootPic[count/2];
 			}else {
-				image = shootPic[2];
+				image = shootPic[5];
 				isDestroy = true;
 			}
-			y -= image.getHeight() + 80 -(enemy.getHeight()/2 -height / 2);
-			x -= image.getWidth() / 2;
+			y =shooter.getY();
+			if(shooter.isRight())x = shooter.getX()+200;
+			else x = shooter.getX()-200;
 			count++;
 		}
 		

@@ -27,9 +27,9 @@ public class Resource {
 	public static BufferedImage[] bg = new BufferedImage[13];
 	public static BufferedImage bgHome;
 	public static BufferedImage[] pic = new BufferedImage[6];
-	public static BufferedImage hpbarUnder,hpbarUpper;
+	public static BufferedImage hpbarUnder,hpbarUpper,time,timePoint;
 	public static BufferedImage mute1,mute2;
-	public static BufferedImage enter2;
+	public static BufferedImage enter2,center;
 	
 	public static AudioClip pikachu1;
 	public static AudioClip pikachu2;
@@ -48,6 +48,7 @@ public class Resource {
 	public static AudioClip buttonSound;
 	public static BufferedImage[] button = new BufferedImage[6];
 	public static BufferedImage[] choose = new BufferedImage[7];
+	public static BufferedImage[] ss = new BufferedImage[6];
 	
 	static{
 		try{
@@ -93,6 +94,8 @@ public class Resource {
 			
 			hpbarUnder = ImageIO.read(loader.getResource("res/hpbarUnder-02.png"));
 			hpbarUpper = ImageIO.read(loader.getResource("res/hpbarUpper-02.png"));
+			time = ImageIO.read(loader.getResource("res/time.png"));
+			timePoint = ImageIO.read(loader.getResource("res/timePoint.png"));
 			
 			pic[0]= ImageIO.read(loader.getResource("res/pikachupic-01.png"));
 			pic[1]= ImageIO.read(loader.getResource("res/luffypic-02.png"));
@@ -116,10 +119,12 @@ public class Resource {
 			choose[4] = ImageIO.read(loader.getResource("res/choosena.png"));
 			choose[5] = ImageIO.read(loader.getResource("res/chooseku.png"));
 			
+			ss[2] = ImageIO.read(loader.getResource("res/ssNaruto.png"));
+			
 			mute1 = ImageIO.read(loader.getResource("res/mute1.png"));
 			mute2 = ImageIO.read(loader.getResource("res/mute2.png"));
 			enter2 = ImageIO.read(loader.getResource("res/enter2.png"));
-			
+			center = ImageIO.read(loader.getResource("res/center.png"));
 			choosePikachu = Applet.newAudioClip((loader.getResource("res/charpikachu.wav")).toURI().toURL());
 			chooseLuffy = Applet.newAudioClip((loader.getResource("res/charluffy.wav")).toURI().toURL());
 			chooseNaruto = Applet.newAudioClip((loader.getResource("res/charnaruto.wav")).toURI().toURL());

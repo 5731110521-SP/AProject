@@ -66,7 +66,7 @@ public class Setting extends JPanel{
 		key[8]=KeyEvent.VK_UP;
 		key[9]=KeyEvent.VK_DOWN;
 		key[10]=KeyEvent.VK_ENTER;
-		key[11]=KeyEvent.VK_BACK_SLASH;
+		key[11]=KeyEvent.VK_CONTROL;
 	}
 	
 	public Setting() {
@@ -153,7 +153,7 @@ public class Setting extends JPanel{
 		
 		ImageIcon o = new ImageIcon();
 		o.setImage(image1);
-		JPanel south = new JPanel();
+		JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER,240,0));
 		JLabel i = new JLabel();
 		i.setIcon(o);
 		i.addMouseListener(new MouseAdapter() {		
@@ -172,7 +172,11 @@ public class Setting extends JPanel{
 				}
 			}
 		});
+		
+		JLabel j = new JLabel("Back");
+		j.setFont(FONT);
 		south.add(i);
+		south.add(j);
 		this.add(south,BorderLayout.SOUTH);
 //		JPanel south= new JPanel(new GridLayout(2,7,5,5));
 //		center.setPreferredSize(new Dimension(640,80));
@@ -336,7 +340,7 @@ public class Setting extends JPanel{
 		//Player1
 		left1.setPreferredSize(new Dimension(100,100));
 		left1.setBackground(Color.BLACK);
-		l[0].setText(KeyEvent.getKeyModifiersText(key[0]));
+		l[0].setText(KeyEvent.getKeyText(key[0]));
 		l[0].setFont(FONT);
 		l[0].setForeground(Color.WHITE);
 		left1.add(l[0]);
@@ -712,6 +716,9 @@ public class Setting extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
+		g2d.setFont(FONT);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Back", 580, 470);
 	}
 
 	public boolean update() {

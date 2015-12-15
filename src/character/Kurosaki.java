@@ -1,6 +1,7 @@
 package character;
 
 import entity.Player;
+import entity.Time;
 import render.IRenderable;
 import render.Resource;
 
@@ -14,6 +15,7 @@ public class Kurosaki extends Character implements IRenderable{
 		y = y - height;
 		this.player = player;
 		character = Resource.bleach.getSubimage(5, 27, 44, 46);
+		transform();
 	}
 
 	@Override
@@ -44,22 +46,29 @@ public class Kurosaki extends Character implements IRenderable{
 	}
 
 	@Override
-	public void picJumpUpdate() {
-		if(countPic[1] < 3){
-			if(countPic[1] == 0) {
-				character = Resource.bleach.getSubimage(63, 176,37, 43);
-			}else if(countPic[1] == 1) {
-				character = Resource.bleach.getSubimage(162, 177,40, 36);
-			}else if(countPic[1] == 2) {
-				character = Resource.bleach.getSubimage(162, 177,40, 36);
+	public void picJumpUpdate(int i) {
+		if (countPic[1] < 3) {
+			if (countPic[1] == 0) {
+				character = Resource.bleach.getSubimage(63, 176, 37, 43);
+			} else if (countPic[1] == 1) {
+				character = Resource.bleach.getSubimage(162, 177, 40, 36);
+			} else if (countPic[1] == 2) {
+				character = Resource.bleach.getSubimage(162, 177, 40, 36);
 			}
 		}
-		if(count==1) countPic[1]=0;
-		else if(count==jumpMax+1) countPic[1]=1;
-		else if(count==jumpMax*2) countPic[1]=2;
-		else if(countPic[1]>=2){
+		if (count[i] == 1)
 			countPic[1] = 0;
-			isJump=false;
+		else if (count[i] == jumpMax + 1)
+			countPic[1] = 1;
+		else if (count[i] == jumpMax * 2)
+			countPic[1] = 2;
+		else if (countPic[1] >= 2) {
+			countPic[1] = 0;
+			if(i==0){
+				isJump = false;
+			}else{
+				isDoubleJump=false;
+			}
 		}
 	}
 
@@ -173,6 +182,7 @@ public class Kurosaki extends Character implements IRenderable{
 		if(countPic[4] >= 11){
 			isAttack=false;
 			isSuperAttack = false;
+			Time.isAlreadyStop=false;
 			countPic[4] = 0;
 		}
 		if(countPic[4]>=7 && countPic[4]<11) isAttack=true;
