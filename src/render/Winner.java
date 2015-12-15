@@ -95,7 +95,7 @@ public class Winner extends JPanel {
 	public boolean update() {
 		if (InputUtility.isLeftClickTriggered()) {
 			InputUtility.updateInputState();
-			Resource.musicHome.loop();
+			if(!Setting.isMute)Resource.musicHome.loop();
 			return true;
 		}
 		return false;
