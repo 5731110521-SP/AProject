@@ -24,7 +24,7 @@ public class Main {
 	private static Winner winner;
 
 	public static void main(String[] args) {
-		frame = new JFrame("Get em' all");
+		frame = new JFrame("Comic Fighter");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		home = new Home();
