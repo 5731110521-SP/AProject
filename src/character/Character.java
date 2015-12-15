@@ -27,7 +27,7 @@ public abstract class Character implements Playable {
 	protected int x, y, xp, yp, width, height;
 	protected boolean isRun, isRight, isJump, isDoubleJump, isTripleJump, isAttack, isDoubleAttack, isShoot,
 			isSuperAttack, lose, isAttacked, isVisible, flashing;
-	protected int flashCounter, flashDurationCounter, counter, countShoot;
+	protected int flashCounter, flashDurationCounter, countShoot;
 	protected Player player;
 	protected Character enemy;
 	protected int jumpMax = 4;

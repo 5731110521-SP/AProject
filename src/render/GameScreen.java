@@ -46,7 +46,6 @@ public class GameScreen extends JComponent{
 		indexBgm = (int)(Math.random()*(Resource.bgsound.length-1));
 		Resource.musicHome.stop();
 		if(!Setting.isMute){
-			System.out.println("play");
 			Resource.bgsound[indexBgm].loop();
 		}
 		
