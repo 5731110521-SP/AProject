@@ -29,7 +29,7 @@ public class Shootable implements IRenderable {
 		isVisible = true;
 		enemy = ch.getEnemy();
 		isRight = ch.isRight();
-		power = 10;
+		power = ch.getAttackPower();
 		if (ch instanceof Pikachu) {
 			shootOject = null;
 			width = 20;
@@ -135,6 +135,6 @@ public class Shootable implements IRenderable {
 
 	@Override
 	public int getZ() {
-		return Integer.MAX_VALUE;
+		return Integer.MAX_VALUE-2;
 	}
 }

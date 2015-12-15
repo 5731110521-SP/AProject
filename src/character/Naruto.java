@@ -16,8 +16,8 @@ import render.Resource;
 
 public class Naruto extends Character implements IRenderable {
 
-	public Naruto(int p,int ap, int hp, Player player) {
-		super(p,20, 100);
+	public Naruto(int p,Player player) {
+		super(p,4, 100);
 		indexC = 2;
 		width = 53;
 		height = 61;
@@ -26,17 +26,20 @@ public class Naruto extends Character implements IRenderable {
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
 		transform();
 	}
-	
+
 	@Override
 	public void stand() {
-		if (isRun || isJump || isAttack || isShoot ||isSuperAttack)	return;
+		if (isRun || isJump || isAttack || isShoot || isSuperAttack)
+			return;
 		character = Resource.naruto.getSubimage(0, 0, 53, 61);
-		for (int a : countPic)	a = 0;
+		for (int a : countPic)
+			a = 0;
 	}
-	
+
 	@Override
 	public void picRunUpdate() {
-		if (!isRun)	return;
+		if (!isRun)
+			return;
 		isAttack = false;
 		if (countPic[0] == 0)
 			character = Resource.naruto.getSubimage(0, 75, 50, 55);
@@ -78,15 +81,17 @@ public class Naruto extends Character implements IRenderable {
 			countPic[1] = 2;
 		else if (countPic[1] >= 2) {
 			countPic[1] = 0;
-			if(i==0){
+			if (i == 0) {
 				isJump = false;
-			}else	isDoubleJump=false;
+			} else
+				isDoubleJump = false;
 		}
 	}
 
 	@Override
 	public void picAttackUpdate() {
-		if (!isAttack)	return;
+		if (!isAttack)
+			return;
 		if (countPic[2] == 0)
 			character = Resource.naruto.getSubimage(10, 375, 45, 61);
 		else if (countPic[2] == 1)
@@ -108,7 +113,8 @@ public class Naruto extends Character implements IRenderable {
 
 	@Override
 	public void picShootUpdate() {
-		if (!isShoot)	return;
+		if (!isShoot)
+			return;
 		if (countPic[5] == 0) {
 			character = Resource.naruto.getSubimage(20, 543, 66, 59);
 			width = 66;
@@ -124,7 +130,6 @@ public class Naruto extends Character implements IRenderable {
 			character = Resource.naruto.getSubimage(410, 463, 66, 58);
 			isShoot = false;
 			countPic[5] = -1;
-			width = 53;
 		}
 		countPic[5]++;
 	}
@@ -170,15 +175,19 @@ public class Naruto extends Character implements IRenderable {
 		countPic[4]++;
 		if (countPic[4] >= 17) {
 			isSuperAttack = false;
-			Time.isAlreadyStop=false;
+			Time.isAlreadyStop = false;
 			countPic[4] = 0;
+			isDoubleAttack = false;
+			isAttack = false;
 		}
-
+		if (countPic[4] >= 6 && countPic[4] < 16)
+			isAttack = true;
 	}
-	
+
 	@Override
 	public void picLoseUpdate() {
-		if (!lose)	return;
+		if (!lose)
+			return;
 		if (countPic[3] == 0) {
 			character = Resource.naruto.getSubimage(4, 221, 52, 56);
 			countPic[3]++;
@@ -194,7 +203,7 @@ public class Naruto extends Character implements IRenderable {
 			yp = 61 - 39;
 		}
 	}
-	
+
 	@Override
 	public int getZ() {
 		return 0;

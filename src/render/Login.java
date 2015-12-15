@@ -151,13 +151,15 @@ public class Login extends JPanel {
 			InputUtility.updateInputState();
 			if (tf.getText().equals("")) {
 				throw new NameBlankException();
-			} else {
-				Name = tf.getText();
-				player[playeri - 1] = new Player(playeri, Name);
-				return true;
-			}
+			}else if(playeri==2 && tf.getText().equals(player[0].getName())){
+				throw new NameBlankException(1);
+		} else {
+			Name = tf.getText();
+			player[playeri - 1] = new Player(playeri, Name);
+			return true;
 		}
-		return false;
+	}
+	return false;
 
 	}
 }

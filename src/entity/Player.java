@@ -21,17 +21,17 @@ public class Player {
 		this.name=name;
 		level = Name.findName(name);
 		
-		Pikachu pikachu = new Pikachu(player,0, 0, this);
+		Pikachu pikachu = new Pikachu(player,this);
 		character[0] = pikachu;
-		Luffy luffy = new Luffy(player,0, 0, this);
+		Luffy luffy = new Luffy(player,this);
 		character[1] = luffy;
-		Naruto naruto = new Naruto(player,0, 0, this);
+		Naruto naruto = new Naruto(player,this);
 		character[2] = naruto;
-		Reborn reborn = new Reborn(player,0, 0, this);
+		Reborn reborn = new Reborn(player,this);
 		character[3] = reborn;
-		Natsu natsu = new Natsu(player,0, 0, this);
+		Natsu natsu = new Natsu(player,this);
 		character[4] = natsu;
-		Kurosaki kuro = new Kurosaki(player, 0, 0, this);
+		Kurosaki kuro = new Kurosaki(player,this);
 		character[5] = kuro;
 	}
 	

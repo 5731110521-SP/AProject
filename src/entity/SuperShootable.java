@@ -16,7 +16,7 @@ import render.RenderableHolder;
 import render.Resource;
 
 public class SuperShootable implements IRenderable {
-	private int x, y, width, height,power,speed, count;
+	private int x, y, width, height,power, count;
 	private Character shooter,enemy;
 	private BufferedImage[] shootPic;
 	private BufferedImage image;
@@ -32,6 +32,8 @@ public class SuperShootable implements IRenderable {
 		count = 0;
 		isDoubleAttack=false;
 		
+		x = enemy.getX() - enemy.getXp() + (enemy.getWidth() / 2);
+		
 		if (shooter instanceof Pikachu) {
 			shootPic = new BufferedImage[3];
 			shootPic[0] = Resource.superAttack[0].getSubimage(652, 12, 33, 221);
@@ -39,7 +41,6 @@ public class SuperShootable implements IRenderable {
 			shootPic[2] = Resource.superAttack[0].getSubimage(714, 249, 64, 211);
 			 width=33;
 			 height=221;
-			 power=20;
 			 image = shootPic[count];
 			 y= enemy.getY() + enemy.getHeight()-(height+200);
 		}else if(shooter instanceof Reborn){
@@ -52,11 +53,10 @@ public class SuperShootable implements IRenderable {
 			shootPic[5] = Resource.superAttack[3].getSubimage(1200, 1597, 59, 57);
 			 width=20;
 			 height=17;
-			 power=20;
 			 image = shootPic[count];
+			 if(shooter.isRight())x = shooter.getX()+200;
+				else x = shooter.getX()-200;
 		}
-		
-		x = enemy.getX() - enemy.getXp() + (enemy.getWidth() / 2);
 
 		transform();
 
@@ -110,8 +110,6 @@ public class SuperShootable implements IRenderable {
 				isDestroy = true;
 			}
 			y =shooter.getY();
-			if(shooter.isRight())x = shooter.getX()+200;
-			else x = shooter.getX()-200;
 			count++;
 		}
 		

@@ -22,7 +22,7 @@ public class Name {
 
 	public static int findName(String name) {
 		for (int i = 0; i < line.size(); i++)
-			if (line.get(i).indexOf(name) >= 0) {
+			if (line.get(i).indexOf(name) == 0) {
 				return getLevel(line.get(i));
 			}
 		addName(name, 1);
@@ -41,7 +41,7 @@ public class Name {
 	public static void levelUp(String name) {
 		int index = 0;
 		for (int i = 0; i < line.size(); i++)
-			if (line.get(i).indexOf(name) >= 0) {
+			if (line.get(i).indexOf(name) == 0) {
 				index = i;
 				break;
 			}
