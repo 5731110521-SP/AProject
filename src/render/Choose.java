@@ -70,56 +70,56 @@ public class Choose extends JPanel {
 						&& arg0.getY() <= 303 + Resource.choose[0].getHeight()) {
 					choose = 0;
 					if(level>=4 && choosed!=0){
+						nameChar = "Pikachu";
 						InputUtility.mouseLeftDown();
 						Resource.buttonSound.play();
 						Resource.choosePikachu.play();
-						nameChar = "Pikachu";
-					}else ShowDialog(player,4);
+					}else ShowDialog(level,4);
 				} else if (arg0.getX() >= 430 && arg0.getX() <= 430 + Resource.choose[1].getWidth() && arg0.getY() >= 95
 						&& arg0.getY() <= 95 + Resource.choose[1].getHeight()) {
 					choose = 1;
 					if(choosed!=1){
+						nameChar = "Luffy";
 						InputUtility.mouseLeftDown();
 						Resource.buttonSound.play();
 						Resource.chooseLuffy.play();
-						nameChar = "Luffy";
-					}else ShowDialog(player,1);
+					}else ShowDialog(level,1);
 				} else if (arg0.getX() >= 186 && arg0.getX() <= 186 + Resource.choose[2].getWidth()
 						&& arg0.getY() >= 283 && arg0.getY() <= 283 + Resource.choose[2].getHeight()) {
 					choose = 2;
 					if(level>=2 && choosed!=2){
+						nameChar = "Naruto";
 						InputUtility.mouseLeftDown();
 						Resource.buttonSound.play();
 						Resource.chooseNaruto.play();
-						nameChar = "Naruto";
-					}else ShowDialog(player,2);
+					}else ShowDialog(level,2);
 				} else if (arg0.getX() >= 11 && arg0.getX() <= 11 + Resource.choose[3].getWidth() && arg0.getY() >= 355
 						&& arg0.getY() <= 355 + Resource.choose[3].getHeight()) {
 					choose = 3;
 					if(level>=3 && choosed!=3){
+						nameChar = "Reborn";
 						InputUtility.mouseLeftDown();
 						Resource.buttonSound.play();
 						Resource.chooseReborn.play();
-						nameChar = "Reborn";
-					}else ShowDialog(player,4);
+					}else ShowDialog(level,3);
 				} else if (arg0.getX() >= 190 && arg0.getX() <= 190 + Resource.choose[4].getWidth()
 						&& arg0.getY() >= 103 && arg0.getY() <= 103 + Resource.choose[4].getHeight()) {
 					choose = 4;
 					if(choosed!=4) {
+						nameChar = "Natsu";
 						InputUtility.mouseLeftDown();
 						Resource.buttonSound.play();
 						Resource.chooseNatsu.play();
-						nameChar = "Natsu";
-					}else ShowDialog(player,1);
+					}else ShowDialog(level,1);
 				} else if (arg0.getX() >= 7 && arg0.getX() <= 7 + Resource.choose[5].getWidth() && arg0.getY() >= 83
 						&& arg0.getY() <= 83 + Resource.choose[5].getHeight()) {
 					choose = 5;
 					if(level>=5 && choosed!=5){
+						nameChar = "Kurosaki";
 						InputUtility.mouseLeftDown();
 						Resource.buttonSound.play();
 						Resource.chooseKurosaki.play();
-						nameChar = "Kurosaki";
-					}else ShowDialog(player,5);
+					}else ShowDialog(level,5);
 				}
 			}
 			private void ShowDialog(int level,int req){
