@@ -24,7 +24,7 @@ public class GameLogic {
 	public GameLogic(int player1Choose,int  player2Choose){	
 
 		RenderableHolder.getInstance().getRenderableList().clear();
-		//player[]
+
 		character[0] = (Playable) Login.player[0].getCharacter()[player1Choose];
 		RenderableHolder.getInstance().add(character[0]);
 	
@@ -49,12 +49,10 @@ public class GameLogic {
 		if(InputUtility.getKeyPressed(Setting.key[1])){
 			if(!((Character) character[0]).isLose() && Time.isPlay){
 				((Character) character[0]).run(true);
-//				Resource.run.play();
 			}
 		}else if(InputUtility.getKeyPressed(Setting.key[0])){
 			if(!((Character) character[0]).isLose() && Time.isPlay){
 				((Character) character[0]).run(false);
-//				Resource.run.play();
 			}
 		}else if(InputUtility.getKeyPressed(Setting.key[3])){
 			if(!((Character) character[0]).isLose() && Time.isPlay){
@@ -88,12 +86,10 @@ public class GameLogic {
 		if(InputUtility.getKeyPressed(Setting.key[7])){
 			if(!((Character) character[1]).isLose()&& Time.isPlay){
 				((Character) character[1]).run(true);
-//				Resource.run.play();
 			}
 		}else if(InputUtility.getKeyPressed(Setting.key[6])){
 			if(!((Character) character[1]).isLose()&& Time.isPlay){
 				((Character) character[1]).run(false);
-//				Resource.run.play();
 			}
 		}else if(InputUtility.getKeyPressed(Setting.key[9])){
 			if(!((Character) character[1]).isLose()&& Time.isPlay){
@@ -121,7 +117,6 @@ public class GameLogic {
 				else Resource.jump.play();
 			}
 		}
-		//isPlay = false;
 		synchronized (RenderableHolder.getInstance()) {
 			for(IRenderable entity : RenderableHolder.getInstance().getRenderableList()){
 				if(entity.isVisible()){

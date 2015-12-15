@@ -1,18 +1,10 @@
-import java.awt.Frame;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import character.Character;
 import render.Choose;
 import render.GameScreen;
 import render.Home;
-import render.How;
 import render.Login;
-import render.RenderableHolder;
-import render.Resource;
 import render.Setting;
 import render.Winner;
 import entity.GameLogic;
@@ -25,7 +17,6 @@ public class Main {
 	private static GameLogic logic;
 	private static JFrame frame;
 	private static Home home;
-//	private static How how;
 	private static Setting setting;
 	private static Login login;
 	private static Choose choose;
@@ -37,7 +28,6 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		home = new Home();
-//		how = new How();
 		setting = new Setting();
 		JComponent currentPanel = null;
 		while (true) {
@@ -73,9 +63,6 @@ public class Main {
 				currentPanel = screen;
 				winner(currentPanel);
 				currentPanel = winner;
-//			} else if (next == 1) {
-//				how(currentPanel);
-//				currentPanel = how;
 			} else if (next == 2) {
 				setting(currentPanel);
 				currentPanel = setting;
@@ -106,26 +93,6 @@ public class Main {
 		}
 
 	}
-
-//	public static void how(JComponent currentPanel) {
-//		how.setVisible(true);
-//		frame.getContentPane().add(how);
-//		frame.remove(currentPanel);
-//		frame.pack();
-//		how.requestFocus();
-//
-//		while (true) {
-//			try {
-//				Thread.sleep(100);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			how.repaint();
-//			if (how.update()) {
-//				return;
-//			}
-//		}
-//	}
 
 	public static void setting(JComponent currentPanel) {
 		setting.setVisible(true);
@@ -221,7 +188,7 @@ public class Main {
 					GameLogic.character[1].notifyAll();
 				}
 			}
-			if (Time.isend)
+			if (Time.isEnd)
 				return;
 		}	
 	}

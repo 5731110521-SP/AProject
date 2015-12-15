@@ -16,14 +16,10 @@ import render.RenderableHolder;
 import render.Resource;
 
 public class SuperShootable implements IRenderable {
-	private int power;
-	private Character shooter;
-	private character.Character enemy;
+	private int x, y, width, height,power,speed, count;
+	private Character shooter,enemy;
 	private BufferedImage[] shootPic;
 	private BufferedImage image;
-	private int x, y, width, height;
-	private int count;
-	private int speed;
 	private boolean isDestroy, isRight, isVisible,isDoubleAttack;
 
 	public SuperShootable(Character ch) {
@@ -65,37 +61,30 @@ public class SuperShootable implements IRenderable {
 		transform();
 
 	}
-
-	@Override
-	public void draw(Graphics2D g) {
-		g.drawImage(image, x, y, null);
-	}
-
-	@Override
-	public boolean isVisible() {
-		return isVisible;
-	}
-
-	@Override
-	public int getZ() {
-		return 0;
+	
+	public void transform() {
+		AffineTransform at = new AffineTransform();
+		if (!isRight) {
+			at = AffineTransform.getScaleInstance(-1, 1);
+			at.translate(-image.getWidth(null), 0);
+			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+			image = op.filter(image, null);
+			x = x - width;
+		}
 	}
 	
 	public boolean collideWith(Character ch) {
-//		if (Math.abs(
-//				(x + (width / 2.0)) - (ch.getX() - ch.getXp() + (ch.getCharacter().getWidth() / 2.0))) <= width / 2.0
-//						+ ch.getCharacter().getWidth() / 2.0
-//				&& Math.abs((y + height / 2.0) - (ch.getY() + ch.getCharacter().getHeight() / 2.0)) <= height / 2.0
-//						+ ch.getCharacter().getHeight() / 2.0) {
-//			return true;
-//		}
-//		return false;
 		Rectangle p = new Rectangle(x, y , image.getWidth(), image.getHeight());
 		Rectangle m = new Rectangle(ch.getX() - ch.getXp(), ch.getY() - ch.getYp(), ch.getCharacter().getWidth(),
 				ch.getCharacter().getHeight());
 		return p.intersects(m);
 	}
-
+	
+	@Override
+	public void draw(Graphics2D g) {
+		g.drawImage(image, x, y, null);
+	}
+	
 	@Override
 	public void update() {
 		if(isDestroy) isVisible=false;
@@ -130,25 +119,20 @@ public class SuperShootable implements IRenderable {
 			if(!isDoubleAttack)enemy.attacked(power);
 			isDoubleAttack = true;
 		}
-		
 	}
-
-	public void transform() {
-		AffineTransform at = new AffineTransform();
-		if (!isRight) {
-			at = AffineTransform.getScaleInstance(-1, 1);
-			at.translate(-image.getWidth(null), 0);
-			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-			image = op.filter(image, null);
-			x = x - width;
-			// if(width>25) xp=width-25;
-			// if(shootOject.getWidth()>width) xp = shootOject.getWidth()-53;
-		}
-	}
-
+	
 	@Override
 	public boolean getFlashing() {
 		return false;
 	}
+	
+	@Override
+	public boolean isVisible() {
+		return isVisible;
+	}
 
+	@Override
+	public int getZ() {
+		return 0;
+	}
 }

@@ -41,26 +41,22 @@ public class Home extends JPanel{
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				InputUtility.mouseLeftRelease();
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
+			
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
+			
 			}
 			
 			@Override
@@ -69,9 +65,6 @@ public class Home extends JPanel{
 					next=0;
 					InputUtility.mouseLeftDown();
 					Resource.buttonSound.play();
-//				}else if(arg0.getX()>=189 &&arg0.getX()<=189+257 && arg0.getY()>=340 && arg0.getY()<= 340+60){
-//					next=1;
-//					InputUtility.mouseLeftDown();
 				}else if(arg0.getX()>=221 &&arg0.getX()<=221+202 && arg0.getY()>=343 && arg0.getY()<= 343+67){
 					next=2;
 					InputUtility.mouseLeftDown();
@@ -89,11 +82,6 @@ public class Home extends JPanel{
 				}else{
 					button[0]=Resource.button[0];
 				}
-//				if(arg0.getX()>=189 &&arg0.getX()<=189+257 && arg0.getY()>=340 && arg0.getY()<= 340+60){
-//					button[1]=Resource.button[4];
-//				}else{
-//					button[1]=Resource.button[1];
-//				}
 				if(arg0.getX()>=221 &&arg0.getX()<=221+202 && arg0.getY()>=343 && arg0.getY()<= 343+67){
 					button[2]=Resource.button[5];
 				}else{
@@ -103,8 +91,7 @@ public class Home extends JPanel{
 			
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
+			
 			}
 		});
 	}
@@ -115,11 +102,7 @@ public class Home extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(Resource.bgHome, 0, 0, null);
 		g2d.drawImage(button[0], 199, 247, null);
-//		g2d.drawImage(button[1], 189, 340, null);
 		g2d.drawImage(button[2], 221, 343, null);
-//		g2d.drawImage(button, 220, 325, null);
-//		g2d.setColor(ColResource.button[0]or.BLACK);
-//		g2d.fillRect(0, 0, 640, 480);
 	}
 
 	public int update() {

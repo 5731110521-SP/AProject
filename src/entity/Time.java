@@ -16,7 +16,7 @@ import render.Login;
 import render.Resource;
 
 public class Time implements IRenderable {
-	public static boolean isPlay, isend, ishasWinner,isAlreadyStop ,isStop;
+	public static boolean isPlay, isEnd, isHasWinner,isAlreadyStop ,isStop;
 	private boolean isUpdate;
 	private double startTime;
 	private int timeEnd, time, state;
@@ -26,7 +26,7 @@ public class Time implements IRenderable {
 
 	static {
 		isPlay = false;
-		isend = false;
+		isEnd = false;
 	}
 
 	public Time() {
@@ -36,12 +36,23 @@ public class Time implements IRenderable {
 		winner = "";
 		time = timeEnd;
 		isPlay = false;
-		isend = false;
-		ishasWinner = false;
+		isEnd = false;
+		isHasWinner = false;
 		isAlreadyStop=false;
 		isStop=false;
 	}
-
+	
+	public void getWinnerAn() {
+		int i = GameLogic.getWinner();
+		if (i == 1) {
+			winner = "The winner is " + Login.player[0].getName();
+		} else if (i == 2) {
+			winner = "The winner is " + Login.player[1].getName();
+		} else {
+			winner = "Draw";
+		}
+	}
+	
 	@Override
 	public void draw(Graphics2D g) {
 		if(isStop){
@@ -83,24 +94,8 @@ public class Time implements IRenderable {
 		} else if (state == timeEnd + 16) {
 			 g.drawImage(image, GameScreen.width / 2 - image.getWidth(), GameScreen.height / 2 - image.getHeight(),
 			 null);
-//			g.drawImage(image, 0, 0, null);
 		}
 		g.drawImage(Resource.timePoint, (int)(165+295-((time*1.0)/timeEnd)*295), 5, null);
-//		r2 = fm.getStringBounds(Integer.toString(time), g);
-//		g.drawString(Integer.toString(time), GameScreen.width / 2 - (int) r2.getWidth() / 2, 40);
-
-	}
-
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public int getZ() {
-		// TODO Auto-generated method stub
-		return Integer.MAX_VALUE;
 	}
 
 	@Override
@@ -112,13 +107,10 @@ public class Time implements IRenderable {
 			if (((Character) GameLogic.character[0]).isSuperAttack()) {
 				image = Resource.pic[((Character) GameLogic.character[0]).indexC];
 				playeri = 0;
-//				image = Resource.ss[2];
 
 			} else {
 				playeri = 1;
 				image = Resource.pic[((Character) GameLogic.character[1]).indexC];
-//				image = Resource.ss[2];
-
 			}
 			isAlreadyStop=true;
 			if (!isUpdate) {
@@ -146,20 +138,20 @@ public class Time implements IRenderable {
 		}
 		
 		double lastTime = System.nanoTime() / 1000000000;
-		if (lastTime - startTime >= 1 && !isend) {
+		if (lastTime - startTime >= 1 && !isEnd) {
 			state++;
 			startTime = lastTime;
-			if (state <= timeEnd + 4 && state >= 5 && !ishasWinner)
+			if (state <= timeEnd + 4 && state >= 5 && !isHasWinner)
 				time--;
 		}
-		if (ishasWinner) {
+		if (isHasWinner) {
 			isPlay = false;
 			if (state < timeEnd + 4)
 				state = timeEnd + 10;
 			else if (state == timeEnd + 11)
 				getWinnerAn();
 			else if (state == timeEnd + 15)
-				isend = true;
+				isEnd = true;
 		} else if (state < 4) {
 			isPlay = false;
 		} else if (state < timeEnd + 4) {
@@ -168,26 +160,23 @@ public class Time implements IRenderable {
 			isPlay = false;
 			getWinnerAn();
 		} else if (state == timeEnd + 9) {
-			isend = true;
+			isEnd = true;
 		}
 
+	}
+	
+	@Override
+	public boolean getFlashing() {
+		return false;
+	}
+	
+	@Override
+	public boolean isVisible() {
+		return true;
 	}
 
 	@Override
-	public boolean getFlashing() {
-		// TODO Auto-generated method stub
-		return false;
+	public int getZ() {
+		return Integer.MAX_VALUE;
 	}
-
-	public void getWinnerAn() {
-		int i = GameLogic.getWinner();
-		if (i == 1) {
-			winner = "The winner is " + Login.player[0].getName();
-		} else if (i == 2) {
-			winner = "The winner is " + Login.player[1].getName();
-		} else {
-			winner = "Draw";
-		}
-	}
-
 }

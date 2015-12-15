@@ -26,34 +26,16 @@ import character.Reborn;
 import input.InputUtility;
 
 public class Setting extends JPanel{
-	@Override
-	public void paintComponents(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintComponents(g);
-	}
-
 	private static final Font FONT = new Font("Century Gothic", Font.BOLD, 20);
-	BufferedImage image1 = Resource.mute1;
-	BufferedImage image2 = Resource.mute2;
-	private int change = 0;
-	private JPanel left1 = new JPanel();
-	private JPanel right1 = new JPanel();
-	private JPanel jump1 = new JPanel();
-	private JPanel attack1 = new JPanel();
-	private JPanel shoot1 = new JPanel();
-	private JPanel superAttack1 = new JPanel();
-	private JPanel left2 = new JPanel();
-	private JPanel right2 = new JPanel();
-	private JPanel jump2 = new JPanel();
-	private JPanel attack2 = new JPanel();
-	private JPanel shoot2 = new JPanel();
-	private JPanel superAttack2 = new JPanel();
-	public static int key[] = new int[12];
-	private JLabel[] l = new JLabel[12];
-	private JLabel player1 = new JLabel("Player1");
-	private JLabel player2 = new JLabel("Player2");
-	private JLabel setting = new JLabel("SETTING");
-	private int index = -1;
+	BufferedImage image1,image2;
+	private int change;
+	private JPanel left1,right1,jump1,attack1,shoot1,superAttack1,left2,right2,jump2,attack2,shoot2,superAttack2;
+	public static int[] key;
+	private JLabel[] l;
+	private JLabel player1;
+	private JLabel player2;
+	private JLabel setting;
+	private int index;
 	static{
 		key[0]=KeyEvent.VK_A;
 		key[1]=KeyEvent.VK_D;
@@ -71,6 +53,28 @@ public class Setting extends JPanel{
 	
 	public Setting() {
 		super(new BorderLayout());
+		image1 = Resource.mute1;
+		image2 = Resource.mute2;
+		change = 0;
+		index = -1;
+		left1 = new JPanel();
+		right1 = new JPanel();
+		jump1 = new JPanel();
+		attack1 = new JPanel();
+		shoot1 = new JPanel();
+		superAttack1 = new JPanel();
+		left2 = new JPanel();
+		right2 = new JPanel();
+		jump2 = new JPanel();
+		attack2 = new JPanel();
+		shoot2 = new JPanel();
+		superAttack2 = new JPanel();
+		key = new int[12];
+		l = new JLabel[12];
+		player1 = new JLabel("Player1");
+		player2 = new JLabel("Player2");
+		setting = new JLabel("SETTING");
+		
 		this.setPreferredSize(new Dimension(640,480));
 		setting.setFont(new Font("Broadway",Font.PLAIN,50));
 		setting.setForeground(Color.WHITE);
@@ -178,147 +182,6 @@ public class Setting extends JPanel{
 		south.add(i);
 		south.add(j);
 		this.add(south,BorderLayout.SOUTH);
-//		JPanel south= new JPanel(new GridLayout(2,7,5,5));
-//		center.setPreferredSize(new Dimension(640,80));
-//		this.add(south,BorderLayout.SOUTH);
-		
-//		JPanel center = new JPanel();
-//		GridBagLayout gridbaglayout = new GridBagLayout();
-//		center.setLayout(gridbaglayout);
-//		center.setPreferredSize(new Dimension(200,200));
-//		GridBagConstraints no1 = new GridBagConstraints();
-//		GridBagConstraints no2 = new GridBagConstraints();
-//		GridBagConstraints no3 = new GridBagConstraints();
-//		GridBagConstraints no4 = new GridBagConstraints();
-//		GridBagConstraints no5 = new GridBagConstraints();
-//		GridBagConstraints no6 = new GridBagConstraints();
-//		GridBagConstraints no7 = new GridBagConstraints();
-//		
-//		no1.gridx = 0;
-//		no1.gridy = 0;
-//		no1.gridwidth = 6;
-//		no1.gridheight = 1;
-//		no1.anchor = GridBagConstraints.CENTER;
-//		no1.fill = GridBagConstraints.BOTH;
-//		gridbaglayout.setConstraints(player1, no1);
-//			
-//		no2.gridx = 0;
-//		no2.gridy = 1;
-//		no2.gridwidth = 1;
-//		no2.gridheight = 1;
-//		gridbaglayout.setConstraints(left1, no2);
-//		
-//		no3.gridx = 1;
-//		no3.gridy = 1;
-//		no3.gridwidth = 1;
-//		no3.gridheight = 1;
-//		gridbaglayout.setConstraints(right1, no3);
-//		
-//		no4.gridx = 2;
-//		no4.gridy = 1;
-//		no4.gridwidth = 1;
-//		no4.gridheight = 1;
-//		gridbaglayout.setConstraints(jump1, no4);
-//		
-//		no5.gridx = 3;
-//		no5.gridy = 1;
-//		no5.gridwidth = 1;
-//		no5.gridheight = 1;
-//		gridbaglayout.setConstraints(attack1, no5);
-//		
-//		no6.gridx = 4;
-//		no6.gridy = 1;
-//		no6.gridwidth = 1;
-//		no6.gridheight = 1;
-//		gridbaglayout.setConstraints(shoot1, no6);
-//		
-//		no7.gridx = 5;
-//		no7.gridy = 1;
-//		no7.gridwidth = 1;
-//		no7.gridheight = 1;
-//		gridbaglayout.setConstraints(superAttack1, no7);
-//		
-//		JPanel south = new JPanel();
-//		GridBagLayout gridbaglayout2 = new GridBagLayout();
-//		south.setLayout(gridbaglayout2);
-//		south.setPreferredSize(new Dimension(200,200));
-//		GridBagConstraints no8 = new GridBagConstraints();
-//		GridBagConstraints no9 = new GridBagConstraints();
-//		GridBagConstraints no10 = new GridBagConstraints();
-//		GridBagConstraints no11 = new GridBagConstraints();
-//		GridBagConstraints no12 = new GridBagConstraints();
-//		GridBagConstraints no13 = new GridBagConstraints();
-//		GridBagConstraints no14 = new GridBagConstraints();
-//		
-//		no8.gridx = 0;
-//		no8.gridy = 0;
-//		no8.gridwidth = 6;
-//		no8.gridheight = 1;
-//		no8.anchor = GridBagConstraints.CENTER;
-//		no8.fill = GridBagConstraints.BOTH;
-//		gridbaglayout2.setConstraints(player2, no8);
-//			
-//		no9.gridx = 0;
-//		no9.gridy = 1;
-//		no9.gridwidth = 1;
-//		no9.gridheight = 1;
-//		gridbaglayout2.setConstraints(left2, no9);
-//		
-//		no10.gridx = 1;
-//		no10.gridy = 1;
-//		no10.gridwidth = 1;
-//		no10.gridheight = 1;
-//		gridbaglayout2.setConstraints(right2, no10);
-//		
-//		no11.gridx = 2;
-//		no11.gridy = 1;
-//		no11.gridwidth = 1;
-//		no11.gridheight = 1;
-//		gridbaglayout2.setConstraints(jump2, no11);
-//		
-//		no12.gridx = 3;
-//		no12.gridy = 1;
-//		no12.gridwidth = 1;
-//		no12.gridheight = 1;
-//		gridbaglayout2.setConstraints(attack2, no12);
-//		
-//		no13.gridx = 4;
-//		no13.gridy = 1;
-//		no13.gridwidth = 1;
-//		no13.gridheight = 1;
-//		gridbaglayout2.setConstraints(shoot2, no13);
-//		
-//		no14.gridx = 5;
-//		no14.gridy = 1;
-//		no14.gridwidth = 1;
-//		no14.gridheight = 1;
-//		gridbaglayout2.setConstraints(superAttack2, no14);
-//		
-//		gridbaglayout2.setConstraints(player2, no8);
-//		gridbaglayout2.setConstraints(left2, no9);
-//		gridbaglayout2.setConstraints(right2, no10);
-//		gridbaglayout2.setConstraints(jump2, no11);
-//		gridbaglayout2.setConstraints(attack2, no12);
-//		gridbaglayout2.setConstraints(shoot2, no13);
-//		gridbaglayout2.setConstraints(superAttack2, no14);
-//		
-//		center.add(player1);
-//		center.add(left1);
-//		center.add(right1);
-//		center.add(jump1);
-//		center.add(attack1);
-//		center.add(shoot1);
-//		center.add(superAttack1);
-//		south.add(player2);
-//		south.add(left2);
-//		south.add(right2);
-//		south.add(jump2);
-//		south.add(attack2);
-//		south.add(shoot2);
-//		south.add(superAttack2);
-//		this.add(center,BorderLayout.CENTER);
-//		this.add(south,BorderLayout.CENTER);
-		
 		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
 		this.setVisible(true);
@@ -337,7 +200,6 @@ public class Setting extends JPanel{
 		l[10]=new JLabel();
 		l[11]=new JLabel();
 		
-		//Player1
 		left1.setPreferredSize(new Dimension(100,100));
 		left1.setBackground(Color.BLACK);
 		l[0].setText(KeyEvent.getKeyText(key[0]));
@@ -494,7 +356,6 @@ public class Setting extends JPanel{
 			}
 		});
 		
-		//Player2
 		left2.setPreferredSize(new Dimension(100,100));
 		left2.setBackground(Color.BLACK);
 		l[6].setText(KeyEvent.getKeyText(key[6]));
@@ -655,13 +516,11 @@ public class Setting extends JPanel{
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			

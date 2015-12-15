@@ -18,18 +18,13 @@ import render.IRenderable;
 import render.Resource;
 
 public class Shootable implements IRenderable {
-	private int power;
-	private Character shooter;
-	private character.Character enemy;
+	private int x, y, width, height,power,speed;
+	private Character shooter,enemy;
 	private BufferedImage shootOject;
-	private int x, y;
-	private int width, height;
-	private int speed;
 	private boolean isDestroy, isRight, isVisible;
 
-	public Shootable(character.Character ch) {
+	public Shootable(Character ch) {
 		shooter = ch;
-		// xp=0;
 		isDestroy = false;
 		isVisible = true;
 		enemy = ch.getEnemy();
@@ -62,7 +57,6 @@ public class Shootable implements IRenderable {
 			height = shootOject.getHeight();
 			speed = width;
 		} else if (ch instanceof Kurosaki) {
-//			shootOject = Resource.bleach.getSubimage(671, 1058, 81, 78);
 			shootOject = Resource.bleach2.getSubimage(3, 10, 29, 58);
 			width = shootOject.getWidth();
 			height = shootOject.getHeight();
@@ -76,18 +70,7 @@ public class Shootable implements IRenderable {
 			transform();
 
 	}
-
-	@Override
-	public void draw(Graphics2D g) {
-		if (shootOject == null) {
-			g.setColor(Color.YELLOW);
-			g.fillOval(x, y, width, height);
-		} else {
-			g.drawImage(shootOject, x, y, null);
-		}
-		// xp=0;
-	}
-
+	
 	public void transform() {
 		AffineTransform at = new AffineTransform();
 		if (!isRight) {
@@ -96,28 +79,10 @@ public class Shootable implements IRenderable {
 			AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 			shootOject = op.filter(shootOject, null);
 			x = x - width;
-			// if(width>25) xp=width-25;
-			// if(shootOject.getWidth()>width) xp = shootOject.getWidth()-53;
 		}
 	}
-
-	@Override
-	public boolean isVisible() {
-		return isVisible;
-	}
-
-	@Override
-	public int getZ() {
-		return Integer.MAX_VALUE;
-	}
-
+	
 	public boolean collideWith(Character ch) {
-		// if(Math.abs((x+width/2.0)-(ch.getX()-ch.getXp()+ch.getWidth()/2.0))
-		// <= width/2.0+ch.getWidth()/2.0
-		// && Math.abs((y+height/2.0)-(ch.getY()-ch.getYp()+ch.getHeight()/2.0))
-		// <= height/2.0+ch.getHeight()/2.0){
-		// return true;
-		// }
 		if (Math.abs(
 				(x + (width / 2.0)) - (ch.getX() - ch.getXp() + (ch.getCharacter().getWidth() / 2.0))) <= width / 2.0
 						+ ch.getCharacter().getWidth() / 2.0
@@ -125,13 +90,19 @@ public class Shootable implements IRenderable {
 						+ ch.getCharacter().getHeight() / 2.0) {
 			return true;
 		}
-		// if(x>=(ch.getX()-ch.getXp()) && x<=(ch.getX()+ch.getWidth()) &&
-		// y>=(ch.getY()-ch.getYp()) && y<=(ch.getY()+ch.getHeight())){
-		// return true;
-		// }
 		return false;
 	}
-
+	
+	@Override
+	public void draw(Graphics2D g) {
+		if (shootOject == null) {
+			g.setColor(Color.YELLOW);
+			g.fillOval(x, y, width, height);
+		} else {
+			g.drawImage(shootOject, x, y, null);
+		}
+	}
+	
 	@Override
 	public void update() {
 		if (isRight) {
@@ -151,10 +122,19 @@ public class Shootable implements IRenderable {
 			isDestroy = true;
 		}
 	}
-
+	
 	@Override
 	public boolean getFlashing() {
 		return false;
 	}
+	
+	@Override
+	public boolean isVisible() {
+		return isVisible;
+	}
 
+	@Override
+	public int getZ() {
+		return Integer.MAX_VALUE;
+	}
 }

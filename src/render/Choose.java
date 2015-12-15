@@ -34,14 +34,11 @@ public class Choose extends JPanel {
 		this.setDoubleBuffered(true);
 		this.setVisible(true);
 		this.requestFocus();
-		//player[]
-		// i 
+
 		this.player=Login.player[player-1];
 		level = this.player.getLevel();
 		x = new int[6];
-		for (int i : x) {
-			i = 0;
-		}
+		for (int i : x)	i = 0;
 		choose = -1;
 		this.choosed=choosed;
 		
@@ -204,14 +201,6 @@ public class Choose extends JPanel {
 			g2.drawImage(Resource.choose[0], 483 + x[0], 303 + x[0], null);
 		if (level >= 5 && choosed!=5)
 			g2.drawImage(Resource.choose[5], 7 + x[5], 83 + x[5], null);
-		// g2.drawImage(Resource.choose[6], 0, 0, null);
-		// g2.drawImage(Resource.choose[1], 430, 95, null);
-		// g2.drawImage(Resource.choose[4], 190, 103, null);
-		//
-		// if(level>=2)g2.drawImage(Resource.choose[2], 186, 283, null);
-		// if(level>=3)g2.drawImage(Resource.choose[3], 11, 355, null);
-		// if(level>=4)g2.drawImage(Resource.choose[0], 483, 303, null);
-		// if(level>=5)g2.drawImage(Resource.choose[5], 7, 83, null);
 		
 		g2.setFont(new Font("Franklin Gothic ...", Font.BOLD, 30));
 		FontMetrics fm = g2.getFontMetrics();

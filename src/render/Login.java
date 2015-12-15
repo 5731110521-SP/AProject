@@ -39,7 +39,6 @@ public class Login extends JPanel {
 	}
 
 	public Login(int i) {
-		// super(new GridBagLayout());
 		super(new BorderLayout());
 		this.setPreferredSize(new Dimension(640, 480));
 		this.setBackground(Color.GRAY);
@@ -85,9 +84,6 @@ public class Login extends JPanel {
 		p2.add(b);
 		this.add(p2, BorderLayout.SOUTH);
 
-		// add(l);
-		// add(tf);
-		// add(b);
 		b.addMouseListener(new MouseListener() {
 
 			@Override
@@ -138,17 +134,15 @@ public class Login extends JPanel {
 		tf.addKeyListener(k);
 
 	}
-
+	
+	public String getName() {
+		return Name;
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		// g2d.setColor(Color.WHITE);
-		// g2d.setFont(new Font("Tahoma", 0, 20));
-		// FontMetrics fm = g2d.getFontMetrics();
-		// Rectangle2D r2 = fm.getStringBounds("- Enter -", g2d);
-		// g2d.drawString("- Enter -", GameScreen.width/2-(int)r2.getWidth()/2,
-		// GameScreen.height/2+80);
 	}
 
 	public boolean update() throws NameBlankException {
@@ -158,18 +152,12 @@ public class Login extends JPanel {
 			if (tf.getText().equals("")) {
 				throw new NameBlankException();
 			} else {
-				// setVisible(false);
 				Name = tf.getText();
 				player[playeri - 1] = new Player(playeri, Name);
-				// player i-1
 				return true;
 			}
 		}
 		return false;
 
-	}
-
-	public String getName() {
-		return Name;
 	}
 }

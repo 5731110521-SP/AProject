@@ -14,9 +14,7 @@ import javax.swing.JComponent;
 
 
 public class GameScreen extends JComponent{
-	public static int width;
-	public static int height;
-	public static int y;
+	public static int width,height,y;
 	private static int indexBg;
 	static{
 		width = 640;
@@ -65,10 +63,7 @@ public class GameScreen extends JComponent{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-		//Background
 		g2d.drawImage(Resource.bg[indexBg],0,0,640,480,null);
-//		g2d.setBackground(Color.WHITE);
-//		g2d.clearRect(0, 0, 640, 480);
 		synchronized (RenderableHolder.getInstance().getRenderableList()) {
 			for(IRenderable entity : RenderableHolder.getInstance().getRenderableList()){
 				if(entity.isVisible() && !entity.getFlashing()){

@@ -9,10 +9,6 @@ public class RenderableHolder {
 	private static final RenderableHolder instance = new RenderableHolder();
 	private List<IRenderable> entities ;
 	
-	public static RenderableHolder getInstance(){
-		return instance;
-	}
-	
 	public RenderableHolder(){
 		entities = new ArrayList<IRenderable>();
 	}
@@ -29,6 +25,10 @@ public class RenderableHolder {
 			});
 		}
 		
+	}
+	
+	public static RenderableHolder getInstance(){
+		return instance;
 	}
 	
 	public List<IRenderable> getRenderableList(){

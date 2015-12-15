@@ -10,42 +10,11 @@ import javax.imageio.ImageIO;
 
 public class Resource {
 	public static final Font standardFont = new Font("Tahoma", Font.BOLD, 30);
-	public static BufferedImage pikachu;
-	public static BufferedImage thunder;
-	public static BufferedImage luffy;
-	public static BufferedImage naruto;
-	public static BufferedImage naruto2;
-	public static BufferedImage narutoBall;
-	public static BufferedImage reborn;
-	public static BufferedImage rebornBomb1;
-	public static BufferedImage rebornBomb2;
-	public static BufferedImage rebornBomb3;
-	public static BufferedImage natsu;
-	public static BufferedImage bleach;
-	public static BufferedImage bleach2;
+	public static BufferedImage pikachu,thunder,luffy,naruto,naruto2,narutoBall,reborn,rebornBomb1,rebornBomb2,rebornBomb3,natsu,bleach,bleach2,bgHome,hpbarUnder,hpbarUpper,time,timePoint,mute1,mute2,enter2,center;
 	public static BufferedImage[] superAttack = new BufferedImage[6];;
 	public static BufferedImage[] bg = new BufferedImage[13];
-	public static BufferedImage bgHome;
 	public static BufferedImage[] pic = new BufferedImage[6];
-	public static BufferedImage hpbarUnder,hpbarUpper,time,timePoint;
-	public static BufferedImage mute1,mute2;
-	public static BufferedImage enter2,center;
-	
-	public static AudioClip pikachu1;
-	public static AudioClip pikachu2;
-	public static AudioClip rebornGun;
-	public static AudioClip rebornBomb;
-	public static AudioClip fencing;
-	public static AudioClip pikaShoot;
-	public static AudioClip jump;
-	public static AudioClip musicHome;
-	public static AudioClip choosePikachu;
-	public static AudioClip chooseLuffy;
-	public static AudioClip chooseNaruto;
-	public static AudioClip chooseNatsu;
-	public static AudioClip chooseKurosaki;
-	public static AudioClip chooseReborn;
-	public static AudioClip buttonSound;
+	public static AudioClip pikachu1,pikachu2,rebornGun,rebornBomb,fencing,pikaShoot,jump,musicHome,choosePikachu,chooseLuffy,chooseNaruto,chooseNatsu,chooseKurosaki,chooseReborn,buttonSound;
 	public static BufferedImage[] button = new BufferedImage[6];
 	public static BufferedImage[] choose = new BufferedImage[7];
 	public static BufferedImage[] ss = new BufferedImage[6];
@@ -75,8 +44,6 @@ public class Resource {
 			superAttack[0] = ImageIO.read(loader.getResource("res/pickachu2.png"));
 			superAttack[3] = ImageIO.read(loader.getResource("res/reborn.png"));
 			
-//			bg[0]= ImageIO.read(loader.getResource("res/bg-01.png"));
-//			bg[1]= ImageIO.read(loader.getResource("res/home.png"));
 			bgHome = ImageIO.read(loader.getResource("res/home.png"));
 			bg[0] = ImageIO.read(loader.getResource("res/bg1.png"));
 			bg[1] = ImageIO.read(loader.getResource("res/bg2.png"));
@@ -140,8 +107,7 @@ public class Resource {
 			fencing = Applet.newAudioClip((loader.getResource("res/fencing.wav")).toURI().toURL());
 			pikaShoot = Applet.newAudioClip((loader.getResource("res/pikashoot.wav")).toURI().toURL());
 			jump = Applet.newAudioClip((loader.getResource("res/jump.wav")).toURI().toURL());
-			
-//			run = Applet.newAudioClip((loader.getResource("res/run.wav")).toURI().toURL());
+
 			System.out.println("try");
 		}catch(Exception e){
 			System.out.println("catch");

@@ -7,8 +7,8 @@ import render.Resource;
 
 public class Kurosaki extends Character implements IRenderable{
 
-	public Kurosaki(int p,int ap, int dp, int hp,Player player) {
-		super(p,10, dp, 100);
+	public Kurosaki(int p,int ap, int hp,Player player) {
+		super(p,10, 100);
 		indexC = 5;
 		width = 44;
 		height = 46;
@@ -17,17 +17,17 @@ public class Kurosaki extends Character implements IRenderable{
 		character = Resource.bleach.getSubimage(5, 27, 44, 46);
 		transform();
 	}
-
+	
 	@Override
-	public int getZ() {
-		return 0;
+	public void stand() {
+		if (isRun || isJump || isAttack || isShoot || isSuperAttack)	return;
+		character = Resource.bleach.getSubimage(5, 27, 44, 46);
+		for (int a : countPic)	a = 0;
 	}
 
 	@Override
 	public void picRunUpdate() {
-//		if (isJump || isAttack || flashing)
-		if(!isRun)
-			return;
+		if(!isRun)	return;
 		isAttack = false;
 		if(countPic[0] == 0)
 			character = Resource.bleach.getSubimage(6, 108, 49, 37);
@@ -73,15 +73,6 @@ public class Kurosaki extends Character implements IRenderable{
 	}
 
 	@Override
-	public void stand() {
-		if (isRun || isJump || isAttack || isShoot || isSuperAttack)
-			return;
-		character = Resource.bleach.getSubimage(5, 27, 44, 46);
-		for (int a : countPic)
-			a = 0;
-	}
-
-	@Override
 	public void picAttackUpdate() {
 		if (!isAttack || isSuperAttack)
 			return;
@@ -115,42 +106,20 @@ public class Kurosaki extends Character implements IRenderable{
 	public void picShootUpdate() {
 		if (!isShoot)
 			return;
-		if(countPic[5] == 0){
+		if(countPic[5] == 0)
 			character = Resource.bleach.getSubimage(5, 1192, 42, 44);
-//			width = 70;
-//			height =50;
-		}
-//		else if(countPic[5] == 1)	
-//			character = Resource.bleach.getSubimage(59, 1192, 42,44);
-//		else if(countPic[5] == 1)
-//			character = Resource.bleach.getSubimage(114, 1192, 43,45);
 		else if(countPic[5] == 1)
 			character = Resource.bleach.getSubimage(222, 1183, 68,52);
 		else if(countPic[5] == 2)
 			character = Resource.bleach.getSubimage(301, 1172, 47,64);
 		else if(countPic[5] == 3)
 			character = Resource.bleach.getSubimage(421, 1192, 51,44);
-//		else if(countPic[5] == 6)
-//			character = Resource.bleach.getSubimage(484, 1188, 54,47);
 
 		countPic[5]++;
 		if(countPic[5] >= 4){
 			isShoot = false;
 			countPic[5] = 0;
 		}
-	}
-
-	@Override
-	public void picLoseUpdate() {
-		if (!lose)
-			return;
-		if(countPic[3] == 0) 			
-			character = Resource.bleach.getSubimage(297, 352,47,32);
-		else if(countPic[3] == 1)
-			character = Resource.bleach.getSubimage(356, 353,43,34);
-		else if(countPic[3] >= 2)
-			character = Resource.bleach.getSubimage(443, 383,57,17);
-		countPic[3]++;
 	}
 
 	@Override
@@ -187,5 +156,22 @@ public class Kurosaki extends Character implements IRenderable{
 		}
 		if(countPic[4]>=7 && countPic[4]<11) isAttack=true;
 	}
-
+	
+	@Override
+	public void picLoseUpdate() {
+		if (!lose)
+			return;
+		if(countPic[3] == 0) 			
+			character = Resource.bleach.getSubimage(297, 352,47,32);
+		else if(countPic[3] == 1)
+			character = Resource.bleach.getSubimage(356, 353,43,34);
+		else if(countPic[3] >= 2)
+			character = Resource.bleach.getSubimage(443, 383,57,17);
+		countPic[3]++;
+	}
+	
+	@Override
+	public int getZ() {
+		return 0;
+	}
 }
