@@ -307,7 +307,7 @@ public abstract class Character implements Playable {
 	}
 
 	public void attack(Character c) {
-		if (isAttack || isShoot || isSuperAttack) {
+		if (isAttack || isShoot || isSuperAttack || isJump) {
 			return;
 		}
 		if (this instanceof Reborn)
