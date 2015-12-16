@@ -9,7 +9,7 @@ import render.Resource;
 public class Luffy extends Character implements IRenderable {
 
 	public Luffy(int p, Player player) {
-		super(p, 10, 100);
+		super(p, 4, 100);
 		indexC = 1;
 		width = 60;
 		height = 58;
