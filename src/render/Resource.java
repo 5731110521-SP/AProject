@@ -26,7 +26,7 @@ public class Resource {
 
 	static {
 		try {
-			ClassLoader loader = RenderableHolder.class.getClassLoader();
+			ClassLoader loader = Resource.class.getClassLoader();
 			pikachu = ImageIO.read(loader.getResource("res/p.gif"));
 			thunder = ImageIO.read(loader.getResource("res/thunder.png"));
 
@@ -34,14 +34,14 @@ public class Resource {
 
 			naruto = ImageIO.read(loader.getResource("res/naruto.png"));
 			naruto2 = ImageIO.read(loader.getResource("res/naruto2.png"));
-			narutoBall = ImageIO.read(loader.getResource("res/narutoBall.png"));
+			narutoBall = ImageIO.read(loader.getResource("res/narutoball.png"));
 
 			reborn = ImageIO.read(loader.getResource("res/reborn.png"));
 			rebornBomb1 = ImageIO.read(loader.getResource("res/reborn2.png"));
 			rebornBomb2 = ImageIO.read(loader.getResource("res/reborn3.png"));
 			rebornBomb3 = ImageIO.read(loader.getResource("res/reborn4.png"));
 
-			natsu = ImageIO.read(loader.getResource("res/Natsu.png"));
+			natsu = ImageIO.read(loader.getResource("res/Natsu.PNG"));
 
 			bleach = ImageIO.read(loader.getResource("res/bleach.png"));
 			bleach2 = ImageIO.read(loader.getResource("res/bleach2.png"));
