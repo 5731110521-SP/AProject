@@ -1,2 +1,2 @@
-# AProject
-New Project ver.2
+# ComicFighter
+Project of Programming Methodology 1
